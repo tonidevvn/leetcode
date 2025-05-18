@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode 1931. Painting a Grid With Three Different Colors</title>
+    <script>
+        /**
+         * @param {number} m
+         * @param {number} n
+         * @return {number}
+         */
+        var colorTheGrid = function(m, n) {
+            const MOD = 10 ** 9 + 7;
+            function getAllStates(m) {
+                const res = [];
+                function dfs(pos, prev, state) {
+                    if (pos === m) {
+                        res.push(state.slice());
+                        return;
+                    }
+                    for (let color = 0; color < 3; color++) {
+                        if (color !== prev) {
+                            state.push(color);
+                            dfs(pos + 1, color, state);
+                            state.pop();
+                        }
+                    }
+                }
+                dfs(0, -1, []);
+                return res;
+            }
+
+            function isValid(a, b) {
+                for (let i = 0; i < a.length; i++) {
+                    if (a[i] === b[i]) return false;
+                }
+                return true;
+            }
+
+            const states = getAllStates(m);
+            const stateIds = new Map();
+            states.forEach((s, i) => stateIds.set(s.join(''), i));
+            const nStates = states.length;
+
+            let dpPrev = new Array(nStates).fill(1);
+            for (let col = 1; col < n; col++) {
+                const dpCurr = new Array(nStates).fill(0);
+                for (let i = 0; i < nStates; i++) {
+                    for (let j = 0; j < nStates; j++) {
+                        if (isValid(states[i], states[j])) {
+                            dpCurr[j] = (dpCurr[j] + dpPrev[i]) % MOD;
+                        }
+                    }
+                }
+                dpPrev = dpCurr;
+            }
+            let ret = 0;
+            for (let v of dpPrev) ret = (ret + v) % MOD;
+
+            return ret % MOD;
+            
+        };
+        document.addEventListener("DOMContentLoaded", function() {
+            // Example 1
+            let num_m = 1;
+            let num_n = 1;
+            document.getElementById("ex1").innerText = colorTheGrid(num_m, num_n);
+            // Example 2
+            num_m = 1;
+            num_n = 2;
+            document.getElementById("ex2").innerText = colorTheGrid(num_m, num_n);
+            // Example 3
+            num_m = 5;
+            num_n = 5;
+            document.getElementById("ex3").innerText = colorTheGrid(num_m, num_n);
+        });
+    </script>
+    <style>
+        pre {
+            border-color: var(--border-tertiary);
+            border-left-width: 2px;
+            color: var(--text-secondary);
+            font-size: .875rem;
+            line-height: 1.25rem;
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+            overflow: visible;
+            padding-left: 1rem;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>LeetCode 1931. Painting a Grid With Three Different Colors</h1>
+    <p>You are given two integers <code>m</code> and <code>n</code>. Consider an <code>m x n</code> grid where each cell is initially white. You can paint each cell <strong>red</strong>, <strong>green</strong>, or <strong>blue</strong>. All cells <strong>must</strong> be painted.</p>
+    <p>Return<em> the number of ways to color the grid with <strong>no two adjacent cells having the same color</strong></em>. Since the answer can be very large, return it <strong>modulo</strong> <code>10<sup>9</sup> + 7</code>.</p>
+    <p><strong>Example 1:</strong></p>
+    <div class="example-block">
+        <img alt="" src="https://assets.leetcode.com/uploads/2021/06/22/colorthegrid.png" style="width: 200px; height: 50px;">  
+        <pre>
+            <strong>Input:</strong> m = 1, n = 1   
+            <strong>Output:</strong> <span id="ex1" style="color: red; font-size: large;"></span>
+            <strong>Explanation:</strong> The three possible colorings are shown in the image above.
+        </pre>
+    </div>
+    <p><strong>Example 2:</strong></p>
+    <div class="example-block">
+        <img alt="" src="https://assets.leetcode.com/uploads/2021/06/22/copy-of-colorthegrid.png" style="width: 321px; height: 121px;">
+        <pre>
+            <strong>Input:</strong> m = 1, n = 2
+            <strong>Output:</strong> <span id="ex2" style="color: red; font-size: large;"></span>
+            <strong>Explanation:</strong> The six possible colorings are shown in the image above.
+        </pre>
+    </div>
+    <p><strong>Example 3:</strong></p>
+    <div class="example-block">
+        <pre>
+            <strong>Input:</strong> m = 5, n = 5
+            <strong>Output:</strong> <span id="ex3" style="color: red; font-size: large;"></span>
+        </pre>
+    </div>
+</body>
+</html>
+
+

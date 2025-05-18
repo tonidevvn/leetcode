@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode 3151. Special Array I</title>
+    <script>
+        /**
+         * @param {number[]} nums
+         * @return {boolean}
+         */
+        var isArraySpecial = function(nums) {
+            let isSpecial = true;
+            for (let i = 0; i < nums.length - 1; i++) {
+                // Check if the parity of adjacent elements is different
+                if ((nums[i] % 2) === (nums[i + 1] % 2)) {
+                    isSpecial = false;
+                    break;
+                }
+            }
+
+            return isSpecial;
+        };
+        document.addEventListener("DOMContentLoaded", function() {
+            // Example 1
+            const nums1 = [1];
+            document.getElementById("ex1").innerText = isArraySpecial(nums1);
+            // Example 2
+            const nums2 = [2,1,4];
+            document.getElementById("ex2").innerText = isArraySpecial(nums2);
+        });
+    </script>
+</head>
+<body>
+    <h1>LeetCode 3151. Special Array I</h1>
+    <p>An array is considered <strong>special</strong> if the <em>parity</em> of every pair of adjacent elements is different. In other words, one element in each pair <strong>must</strong> be even, and the other <strong>must</strong> be odd.</p>
+    <p>You are given an array of integers <code>nums</code>. Return <code>true</code> if <code>nums</code> is a <strong>special</strong> array, otherwise, return <code>false</code>.</p>
+    
+    <p><strong>Example 1:</strong></p>
+    <div class="example-block">
+        <p><strong>Input:</strong> <span class="example-io">nums = [1]</span></p>
+        
+        <p><strong>Output:</strong> <span id="ex1" style="color: red; font-size: large;"></span></p>
+        
+        <p><strong>Explanation:</strong></p>
+        
+        <p>There is only one element. So the answer is <code>true</code>.</p>
+        </div>
+    <p><strong>Example 2:</strong></p>
+    <div class="example-block">
+        <p><strong>Input:</strong> <span class="example-io">nums = [2,1,4]</span></p>
+        
+        <p><strong>Output:</strong> <span id="ex2" style="color: red; font-size: large;"></span></p>
+        
+        <p><strong>Explanation:</strong></p>
+        
+        <p>There is only two pairs: <code>(2,1)</code> and <code>(1,4)</code>, and both of them contain numbers with different parity. So the answer is <code>true</code>.</p>
+        </div>
+</body>
+</html>
+
+
