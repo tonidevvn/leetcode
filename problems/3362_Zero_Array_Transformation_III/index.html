@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 3362. Zero Array Transformation III</title>
+    <script>
+      /**
+       * @param {number[]} nums
+       * @param {number[][]} queries
+       * @return {number}
+       */
+      var maxRemoval = function (nums, queries) {
+        let max = Math.max(...nums);
+        const qlen = queries.length;
+
+        console.log(`queries check: ${queries}`);
+        let tempNums = new Array(nums.length).fill(0);
+        console.log(`max ${max} & qlen ${qlen}`);
+        if (max > qlen) return -1;
+        let waitzeros = [];
+        let unused = 0;
+        let stepCount = 0;
+        // quick check nums
+        for (let k = 0; k < nums.length; k++) {
+          if (nums[k] > 0) {
+            waitzeros.push(k);
+          }
+        }
+        console.log(`waitzeros check: ${waitzeros}`);
+        if (waitzeros.length === 0) {
+          console.log(`qlen ${qlen} stepCount check: ${stepCount} unused check: ${unused}`);
+          return qlen - stepCount;
+        }
+        // first pass
+        console.log('1st pass');
+        for (let i = 0; i < qlen; i++) {
+          const [l, r] = queries[i];
+          console.log(`queries[${i}] check: ${queries[i]}`);
+          if (waitzeros.indexOf(l) < 0 && waitzeros.indexOf(r) < 0) {
+            queries[i] = null;
+            unused += 1;
+            console.log(`unused check: ${unused}`);
+            continue;
+          } else if (
+            waitzeros.indexOf(l) >= 0 &&
+            waitzeros.indexOf(r) >= 0 &&
+            l !== r
+          ) {
+            tempNums[l] += 1;
+            tempNums[r] += 1;
+            queries[i] = null;
+            console.log(`tempNums check: ${tempNums}`);
+
+            stepCount += 1;
+            // quick check nums
+            let j = 0;
+            for (; j < waitzeros.length; j++) {
+              const k = waitzeros[j];
+              if (tempNums[k] < nums[k]) {
+                break;
+              } else {
+                waitzeros[j] = -1;
+              }
+            }
+            waitzeros = waitzeros.filter((k) => k >= 0);
+            console.log(`waitzeros check: ${waitzeros}`);
+            if (waitzeros.length === 0) {
+              console.log(
+                `qlen ${qlen} stepCount check: ${stepCount} unused check: ${unused}`
+              );
+              return qlen - stepCount;
+            }
+          }
+        }
+
+        // second pass
+        console.log('2nd pass');
+        for (let i = 0; i < qlen; i++) {
+          if (queries[i] !== null) {
+            const [l, r] = queries[i];
+            console.log(`queries[${i}] check: ${queries[i]}`);
+            if (waitzeros.indexOf(l) < 0 && waitzeros.indexOf(r) < 0) {
+              queries[i] = null;
+              unused += 1;
+              console.log(`unused check: ${unused}`);
+              continue;
+            } else {
+              if (waitzeros.indexOf(l) >= 0 || waitzeros.indexOf(r) >= 0) {
+                if (l != r) {
+                  tempNums[l] += 1;
+                  tempNums[r] += 1;
+                  console.log(`tempNums check: ${tempNums}`);
+                } else {
+                  tempNums[l] += 1;
+                  console.log(`tempNums check: ${tempNums}`);
+                }
+                queries[i] = null;
+                stepCount += 1;
+
+                // quick check nums
+                let j = 0;
+                for (; j < waitzeros.length; j++) {
+                  const k = waitzeros[j];
+                  if (tempNums[k] < nums[k]) {
+                    break;
+                  } else {
+                    waitzeros[j] = -1;
+                  }
+                }
+                waitzeros = waitzeros.filter((k) => k >= 0);
+                console.log(`waitzeros check: ${waitzeros}`);
+                if (waitzeros.length === 0) {
+                  console.log(
+                    `qlen ${qlen} stepCount check: ${stepCount} unused check: ${unused}`
+                  );
+                  return qlen - stepCount;
+                }
+              }
+            }
+          }
+        }
+        return -1;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        const nums_1 = [2, 0, 2],
+          queries_1 = [
+            [0, 2],
+            [0, 2],
+            [1, 1],
+          ];
+        document.getElementById("ex1").innerText = maxRemoval(
+          nums_1,
+          queries_1
+        );
+        // Example 2
+        const nums_2 = [1, 1, 1, 1],
+          queries_2 = [
+            [1, 3],
+            [0, 2],
+            [1, 3],
+            [1, 2],
+          ];
+        document.getElementById("ex2").innerText = maxRemoval(
+          nums_2,
+          queries_2
+        );
+        // Example 3
+        const nums_3 = [1, 2],
+          queries_3 = [
+            [1, 1],
+            [0, 0],
+            [1, 1],
+            [1, 1],
+            [0, 1],
+            [0, 0],
+          ];
+        document.getElementById("ex3").innerText = maxRemoval(
+          nums_3,
+          queries_3
+        );
+        // Example 4
+        const nums_4 = [0, 3],
+          queries_4 = [
+            [0, 1],
+            [0, 0],
+            [0, 1],
+            [0, 1],
+            [0, 0],
+          ];
+        document.getElementById("ex4").innerText = maxRemoval(
+          nums_4,
+          queries_4
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 3362. Zero Array Transformation III</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        You are given an integer array <code>nums</code> of length
+        <code>n</code> and a 2D array <code>queries</code> where
+        <code>queries[i] = [l<sub>i</sub>, r<sub>i</sub>]</code>.
+      </p>
+
+      <p>
+        Each <code>queries[i]</code> represents the following action on
+        <code>nums</code>:
+      </p>
+
+      <ul>
+        <li>
+          Decrement the value at each index in the range
+          <code>[l<sub>i</sub>, r<sub>i</sub>]</code> in <code>nums</code> by
+          <strong>at most</strong><strong> </strong>1.
+        </li>
+        <li>
+          The amount by which the value is decremented can be chosen
+          <strong>independently</strong> for each index.
+        </li>
+      </ul>
+
+      <p>
+        A <strong>Zero Array</strong> is an array with all its elements equal to
+        0.
+      </p>
+
+      <p>
+        Return the <strong>maximum </strong>number of elements that can be
+        removed from <code>queries</code>, such that <code>nums</code> can still
+        be converted to a <strong>zero array</strong> using the
+        <em>remaining</em> queries. If it is not possible to convert
+        <code>nums</code> to a <strong>zero array</strong>, return -1.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io"
+            >nums = [2,0,2], queries = [[0,2],[0,2],[1,1]]</span
+          >
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span>
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          After removing <code>queries[2]</code>, <code>nums</code> can still be
+          converted to a zero array.
+        </p>
+
+        <ul>
+          <li>
+            Using <code>queries[0]</code>, decrement <code>nums[0]</code> and
+            <code>nums[2]</code> by 1 and <code>nums[1]</code> by 0.
+          </li>
+          <li>
+            Using <code>queries[1]</code>, decrement <code>nums[0]</code> and
+            <code>nums[2]</code> by 1 and <code>nums[1]</code> by 0.
+          </li>
+        </ul>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io"
+            >nums = [1,1,1,1], queries = [[1,3],[0,2],[1,3],[1,2]]</span
+          >
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span>
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          We can remove <code>queries[2]</code> and <code>queries[3]</code>.
+        </p>
+      </div>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io"
+            >nums = [1,2], queries = [[1,1],[0,0],[1,1],[1,1],[0,1],[0,0]]</span
+          >
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex3" style="color: red; font-size: large"></span>
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          <code>nums</code> cannot be converted to a zero array even after using
+          all the queries.
+        </p>
+      </div>
+
+      <p><strong class="example">Example 4:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io"
+            >nums = [0,3], queries = [[0,1],[0,0],[0,1],[0,1],[0,0]]</span
+          >
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex4" style="color: red; font-size: large"></span>
+        </p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code>
+        </li>
+        <li>
+          <code>0 &lt;= nums[i] &lt;= 10<sup>5</sup></code>
+        </li>
+        <li>
+          <code>1 &lt;= queries.length &lt;= 10<sup>5</sup></code>
+        </li>
+        <li><code>queries[i].length == 2</code></li>
+        <li>
+          <code
+            >0 &lt;= l<sub>i</sub> &lt;= r<sub>i</sub> &lt; nums.length</code
+          >
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
