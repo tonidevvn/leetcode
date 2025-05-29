@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 2342. Max Sum of a Pair With Equal Sum of Digits</title>
+    <script>
+      /**
+       * @param {number[]} nums
+       * @return {number}
+       */
+      var maximumSum = function (nums) {
+        let max = -1;
+        let sumdigits = new Map();
+        for (let i = 0; i < nums.length; i++) {
+          // calculate sum of digits at each index
+          let digits = nums[i].toString().split("");
+          let total = digits.reduce((prev, cur) => {
+            return parseInt(prev) + parseInt(cur);
+          }, 0);
+          console.log(`${sumdigits} a new total added ${total}`);
+          if (sumdigits.has(total)) {
+            let newdigits = [...sumdigits.get(total), nums[i]];
+            newdigits = newdigits.sort((a,b) => a - b);
+            console.log("🚀 ~ maximumSum ~ newdigits before:", newdigits)
+            if (newdigits.length > 2)
+              sumdigits.set(total, newdigits.slice(1));
+            else 
+              sumdigits.set(total, newdigits);
+
+            // check max with newdigits
+            console.log("🚀 ~ maximumSum ~ newdigits after:", sumdigits.get(total))
+            max = Math.max(
+              max,
+              newdigits[newdigits.length - 1] + newdigits[newdigits.length - 2]
+            );
+            console.log(`a new max updated ${max} with total ${total}`);
+          } else sumdigits.set(total, [nums[i]]);
+        }
+        return max;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = maximumSum([
+          18, 43, 36, 13, 7,
+        ]);
+
+        // Example 2
+        document.getElementById("ex2").innerText = maximumSum([10, 12, 19, 14]);
+        // Example 3
+        document.getElementById("ex3").innerText = maximumSum([279,169,463,252,94,455,423,315,288,64,494,337,409,283,283,477,248,8,89,166,188,186,128]);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 2342. Max Sum of a Pair With Equal Sum of Digits</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        You are given a <strong>0-indexed</strong> array
+        <code>nums</code> consisting of <strong>positive</strong> integers. You
+        can choose two indices <code>i</code> and <code>j</code>, such that
+        <code>i != j</code>, and the sum of digits of the number
+        <code>nums[i]</code> is equal to that of <code>nums[j]</code>.
+      </p>
+
+      <p>
+        Return the <strong>maximum</strong> value of<em> </em
+        ><code>nums[i] + nums[j]</code><em> </em>that you can obtain over all
+        possible indices <code>i</code> and <code>j</code> that satisfy the
+        conditions. If no such pair of indices exists, return -1.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [18,43,36,13,7]
+      <strong>Output:</strong> <span id="ex1" style="color: red; font-size: large;"></span>; Expected -> 54
+      <strong>Explanation:</strong> The pairs (i, j) that satisfy the conditions are:
+      - (0, 2), both numbers have a sum of digits equal to 9, and their sum is 18 + 36 = 54.
+      - (1, 4), both numbers have a sum of digits equal to 7, and their sum is 43 + 7 = 50.
+      So the maximum sum that we can obtain is 54.
+      </pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [10,12,19,14]
+      <strong>Output:</strong> <span id="ex2" style="color: red; font-size: large;"></span>; Expected -> -1
+      <strong>Explanation:</strong> There are no two numbers that satisfy the conditions, so we return -1.
+      </pre>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [279,169,463*,252,94,455,423,315,288,64,494,337,409*,283,283,477,248,8,89,166,188,186,128]
+      <strong>Output:</strong> <span id="ex3" style="color: red; font-size: large;"></span>; Expected -> 872
+      </pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code>
+        </li>
+        <li>
+          <code>1 &lt;= nums[i] &lt;= 10<sup>9</sup></code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
