@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      LeetCode 3105. Longest Strictly Increasing or Strictly Decreasing Subarray
+    </title>
+    <script>
+      /**
+       * @param {number[]} nums
+       * @return {number}
+       */
+      var longestMonotonicSubarray = function (nums) {
+        let max = 1;
+        let stepinc = 1;
+        let stepdec = 1;
+        for (let i = 1; i < nums.length; i++) {
+          if (nums[i] > nums[i - 1]) {
+            stepinc += 1;
+            stepdec = 1;
+            console.log("🚀 ~ stepdec after:", stepdec);
+          } else if (nums[i] < nums[i - 1]) {
+            stepdec += 1;
+            console.log("🚀 ~ stepdec after:", stepdec);
+            console.log(`${nums[i]} & ${nums[i - 1]}`);
+            stepinc = 1;
+          } else {
+            stepdec = 1;
+            stepinc = 1;
+            console.log("🚀 ~ stepdec after:", stepdec);
+          }
+          max = Math.max(stepdec, stepinc, max);
+        }
+        return max;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = longestMonotonicSubarray([
+          1, 4, 3, 3, 2,
+        ]);
+
+        // Example 2
+        document.getElementById("ex2").innerText = longestMonotonicSubarray([
+          3, 3, 3, 3,
+        ]);
+
+        // Example 3
+        document.getElementById("ex3").innerText = longestMonotonicSubarray([
+          3, 2, 1,
+        ]);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>
+      LeetCode 3105. Longest Strictly Increasing or Strictly Decreasing Subarray
+    </h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        You are given an array of integers <code>nums</code>. Return
+        <em
+          >the length of the <strong>longest</strong>
+          <span
+            data-keyword="subarray-nonempty"
+            class="cursor-pointer relative text-dark-blue-s text-sm"
+            ><button
+              type="button"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              aria-controls="radix-:r8j:"
+              data-state="closed"
+              class=""
+            >
+              subarray
+            </button></span
+          >
+          of </em
+        ><code>nums</code
+        ><em>
+          which is either
+          <strong
+            ><span
+              data-keyword="strictly-increasing-array"
+              class="cursor-pointer relative text-dark-blue-s text-sm"
+              ><button
+                type="button"
+                aria-haspopup="dialog"
+                aria-expanded="false"
+                aria-controls="radix-:r8k:"
+                data-state="closed"
+                class=""
+              >
+                strictly increasing
+              </button></span
+            ></strong
+          >
+          or
+          <strong
+            ><span
+              data-keyword="strictly-decreasing-array"
+              class="cursor-pointer relative text-dark-blue-s text-sm"
+              ><button
+                type="button"
+                aria-haspopup="dialog"
+                aria-expanded="false"
+                aria-controls="radix-:r8l:"
+                data-state="closed"
+                class=""
+              >
+                strictly decreasing
+              </button></span
+            ></strong
+          ></em
+        >.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">nums = [1,4,3,3,2]</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> 2
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          The strictly increasing subarrays of <code>nums</code> are
+          <code>[1]</code>, <code>[2]</code>, <code>[3]</code>,
+          <code>[3]</code>, <code>[4]</code>, and <code>[1,4]</code>.
+        </p>
+
+        <p>
+          The strictly decreasing subarrays of <code>nums</code> are
+          <code>[1]</code>, <code>[2]</code>, <code>[3]</code>,
+          <code>[3]</code>, <code>[4]</code>, <code>[3,2]</code>, and
+          <code>[4,3]</code>.
+        </p>
+
+        <p>Hence, we return <code>2</code>.</p>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">nums = [3,3,3,3]</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> 1
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          The strictly increasing subarrays of <code>nums</code> are
+          <code>[3]</code>, <code>[3]</code>, <code>[3]</code>, and
+          <code>[3]</code>.
+        </p>
+
+        <p>
+          The strictly decreasing subarrays of <code>nums</code> are
+          <code>[3]</code>, <code>[3]</code>, <code>[3]</code>, and
+          <code>[3]</code>.
+        </p>
+
+        <p>Hence, we return <code>1</code>.</p>
+      </div>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong> <span class="example-io">nums = [3,2,1]</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> 3
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          The strictly increasing subarrays of <code>nums</code> are
+          <code>[3]</code>, <code>[2]</code>, and <code>[1]</code>.
+        </p>
+
+        <p>
+          The strictly decreasing subarrays of <code>nums</code> are
+          <code>[3]</code>, <code>[2]</code>, <code>[1]</code>,
+          <code>[3,2]</code>, <code>[2,1]</code>, and <code>[3,2,1]</code>.
+        </p>
+
+        <p>Hence, we return <code>3</code>.</p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= nums.length &lt;= 50</code></li>
+        <li><code>1 &lt;= nums[i] &lt;= 50</code></li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 1800. Maximum Ascending Subarray Sum</title>
+    <script>
+      /**
+       * @param {number[]} nums
+       * @return {number}
+       */
+      var maxAscendingSum = function (nums) {
+        let max = 0, temp = nums[0];
+        for (let i = 0; i < nums.length; i++) {
+          if (nums[i] > nums[i - 1]) temp += nums[i];
+          else temp = nums[i];
+          max = Math.max(max, temp);
+        }
+        return max;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = maxAscendingSum(
+          (nums = [10, 20, 30, 5, 10, 50])
+        );
+
+        // Example 2
+        document.getElementById("ex2").innerText = maxAscendingSum(
+          (nums = [10, 20, 30, 40, 50])
+        );
+
+        // Example 3
+        document.getElementById("ex3").innerText = maxAscendingSum(
+          (nums = [12, 17, 15, 13, 10, 11, 12])
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 1800. Maximum Ascending Subarray Sum</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given an array of positive integers <code>nums</code>, return the
+        <strong>maximum</strong> possible sum of an
+        <span
+          data-keyword="strictly-increasing-array"
+          class="cursor-pointer relative text-dark-blue-s text-sm"
+          ><button
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="radix-:r92:"
+            data-state="closed"
+            class=""
+          >
+            strictly increasing subarray
+          </button></span
+        >
+        in<em> </em><code>nums</code>.
+      </p>
+
+      <p>
+        A subarray is defined as a contiguous sequence of numbers in an array.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [10,20,30,5,10,50]
+      <strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+      -> 65
+      <strong>Explanation: </strong>[5,10,50] is the ascending subarray with the maximum sum of 65.
+      </pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [10,20,30,40,50]
+      <strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+      -> 150
+      <strong>Explanation: </strong>[10,20,30,40,50] is the ascending subarray with the maximum sum of 150.
+      </pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [12,17,15,13,10,11,12]
+      <strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+      -> 33
+      <strong>Explanation: </strong>[10,11,12] is the ascending subarray with the maximum sum of 33.
+      </pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= nums.length &lt;= 100</code></li>
+        <li><code>1 &lt;= nums[i] &lt;= 100</code></li>
+      </ul>
+    </div>
+  </body>
+</html>
