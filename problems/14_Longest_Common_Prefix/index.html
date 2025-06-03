@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 14. Longest Common Prefix</title>
+    <script>
+      /**
+       * @param {string[]} strs
+       * @return {string}
+       */
+      var longestCommonPrefix = function (strs) {
+        let common_prefix = "";
+        strs = strs.sort((a, b) => a.length - b.length);
+        for (let i = 0; i < strs[0].length; i++) {
+          for (let j = 1; j < strs.length; j++) {
+            if (strs[j][i] !== strs[0][i]) return common_prefix;
+          }
+          common_prefix += strs[0][i];
+        }
+        return common_prefix;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = longestCommonPrefix([
+          "flower",
+          "flow",
+          "flight",
+        ]);
+
+        // Example 2
+        document.getElementById("ex2").innerText = longestCommonPrefix([
+          "dog",
+          "racecar",
+          "car",
+        ]);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 14. Longest Common Prefix</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Write a function to find the longest common prefix string amongst an
+        array of strings.
+      </p>
+
+      <p>
+        If there is no common prefix, return an empty string <code>""</code>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> strs = ["flower","flow","flight"]
+      <strong>Output:</strong> <span id="ex1" style="color: red; font-size: large;"></span> ; Expected -> "fl"
+      </pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> strs = ["dog","racecar","car"]
+      <strong>Output:</strong> <span id="ex2" style="color: red; font-size: large;"></span> ; Expected -> ""
+      <strong>Explanation:</strong> There is no common prefix among the input strings.
+      </pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= strs.length &lt;= 200</code></li>
+        <li><code>0 &lt;= strs[i].length &lt;= 200</code></li>
+        <li>
+          <code>strs[i]</code> consists of only lowercase English letters if it
+          is non-empty.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
