@@ -4,9 +4,9 @@ Welcome! This README tracks my progress and solutions for LeetCode problems.
 
 ## 📈 Progress
 
-😎 Problems Solved: 54 (Easy 43, Med 10, Hard 1)
-⌛️ Last Updated: Jun 03, 2025
-🔥 Longest streak : 5
+- 😎 Problems Solved: 54 
+- (Easy 48/880, Med 13/1858, Hard 1/842)
+- ⌛️ Last Updated: Jun 03, 2025
 
 ## 🚀 How to Use
 

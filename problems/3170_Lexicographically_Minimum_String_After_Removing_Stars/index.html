@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      LeetCode 3170. Lexicographically Minimum String After Removing Stars
+    </title>
+    <script>
+      /**
+       * @param {string} s
+       * @return {string}
+       */
+      var clearStars = function (s) {
+        console.log("🚀 ~ clearStars ~ s:", s);
+        // Use an array as a stack and a frequency map for fast min lookup
+        let arr = [];
+        let freq = new Array(26).fill(0);
+
+        for (let i = 0; i < s.length; ++i) {
+          if (s[i] !== "*") {
+            arr.push(s[i]);
+            freq[s[i].charCodeAt(0) - 97]++;
+          } else {
+            // Find the smallest character to the left (in arr)
+            let minIdx = -1;
+            let minCharIdx = -1;
+            for (let c = 0; c < 26; ++c) {
+              if (freq[c] > 0) {
+                // Find first occurrence of this char in arr
+                let ch = String.fromCharCode(97 + c);
+                for (let j = arr.length - 1; j >= 0; --j) {
+                  if (arr[j] === ch) {
+                    minIdx = j;
+                    minCharIdx = c;
+                    break;
+                  }
+                }
+                if (minIdx !== -1) break;
+              }
+            }
+            console.log("🚀 ~ clearStars ~ minIdx:", minIdx);
+            if (minIdx !== -1) {
+              arr.splice(minIdx, 1);
+              freq[minCharIdx]--;
+            }
+          }
+        }
+        return arr.join("");
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = clearStars("aaba*");
+
+        // Example 2
+        document.getElementById("ex2").innerText = clearStars("abc*");
+
+        // Example 3
+        document.getElementById("ex3").innerText = clearStars("abcde*f*");
+
+        // Example 4
+        document.getElementById("ex4").innerText = clearStars("abc*de*fgh*");
+      });
+    </script>
+  </head>
+  <body>
+    <h1>
+      LeetCode 3403. Find the Lexicographically Largest String From the Box I
+    </h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        You are given a string <code>s</code>. It may contain any number of
+        <code>'*'</code> characters. Your task is to remove all
+        <code>'*'</code> characters.
+      </p>
+
+      <p>While there is a <code>'*'</code>, do the following operation:</p>
+
+      <ul>
+        <li>
+          Delete the leftmost <code>'*'</code> and the
+          <strong>smallest</strong> non-<code>'*'</code> character to its
+          <em>left</em>. If there are several smallest characters, you can
+          delete any of them.
+        </li>
+      </ul>
+
+      <p>
+        Return the
+        <span
+          data-keyword="lexicographically-smaller-string"
+          class="cursor-pointer relative text-dark-blue-s text-sm"
+          ><button
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="radix-:rs:"
+            data-state="closed"
+            class=""
+          >
+            lexicographically smallest
+          </button></span
+        >
+        resulting string after removing all <code>'*'</code> characters.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong> <span class="example-io">s = "aaba*"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> "aab"
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          We should delete one of the <code>'a'</code> characters with
+          <code>'*'</code>. If we choose <code>s[3]</code>,
+          <code>s</code> becomes the lexicographically smallest.
+        </p>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong> <span class="example-io">s = "abc*"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> "bc"
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>There is no <code>'*'</code> in the string.</p>
+      </div>
+      <p><strong class="example">Example 3:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong> <span class="example-io">s = "abcde*f*"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> "cdef"
+        </p>
+      </div>
+      <p><strong class="example">Example 4:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">s = "abc*de*fgh*"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex4" style="color: red; font-size: large"></span> ; Expected
+          -> "defgh"
+        </p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= s.length &lt;= 10<sup>5</sup></code>
+        </li>
+        <li>
+          <code>s</code> consists only of lowercase English letters and
+          <code>'*'</code>.
+        </li>
+        <li>
+          The input is generated such that it is possible to delete all
+          <code>'*'</code> characters.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
