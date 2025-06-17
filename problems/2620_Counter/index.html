@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 2620. Counter</title>
+    <script>
+      /**
+       * @param {number} n
+       * @return {Function} counter
+       */
+      var createCounter = function (n) {
+        let counter = 0;
+        return function () { return n + counter++};
+      };
+
+      /**
+       * const counter = createCounter(10)
+       * counter() // 10
+       * counter() // 11
+       * counter() // 12
+       */
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        const counter1 = createCounter(10)
+        counter1() // 10
+        counter1() // 11
+        document.getElementById("ex1").innerText = counter1(); // 12
+        // Example 2
+        const counter2 = createCounter(-2)
+        counter2() // -2
+        counter2() // -1
+        counter2() // 0
+        counter2() // 1
+        document.getElementById("ex2").innerText = counter2(); // 2
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 2620. Counter</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given an integer&nbsp;<code>n</code>,&nbsp;return a
+        <code>counter</code> function. This <code>counter</code> function
+        initially returns&nbsp;<code>n</code>&nbsp;and then returns 1 more than
+        the previous value every subsequent time it is called (<code>n</code>,
+        <code>n + 1</code>, <code>n + 2</code>, etc).
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> 
+      n = 10 
+      ["call","call","call"]
+      <strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected -> [10,11,12]
+      <strong>Explanation: 
+      </strong>counter() = 10 // The first time counter() is called, it returns n.
+      counter() = 11 // Returns 1 more than the previous time.
+      counter() = 12 // Returns 1 more than the previous time.
+      </pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> 
+      n = -2
+      ["call","call","call","call","call"]
+      <strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected -> [-2,-1,0,1,2]
+      <strong>Explanation:</strong> counter() initially returns -2. Then increases after each sebsequent call.
+      </pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>-1000<sup>&nbsp;</sup>&lt;= n &lt;= 1000</code></li>
+        <li><code>0 &lt;= calls.length &lt;= 1000</code></li>
+        <li><code>calls[i] === "call"</code></li>
+      </ul>
+    </div>
+  </body>
+</html>

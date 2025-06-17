@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 2619. Array Prototype Last</title>
+    <script>
+      /**
+       * @return {null|boolean|number|string|Array|Object}
+       */
+      Array.prototype.last = function () {
+        console.log("🚀 ~ this.length:", this.length);
+        if (this.length == 0) return -1;
+        else return this[this.length - 1];
+      };
+
+      /**
+       * const arr = [1, 2, 3];
+       * arr.last(); // 3
+       */
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        let nums = [null, {}, 3];
+        document.getElementById("ex1").innerText = nums.last();
+        // Example 2
+        nums = [];
+        document.getElementById("ex2").innerText = nums.last();
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 2619. Array Prototype Last</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Write code that enhances all arrays such that you can call
+        the&nbsp;<code>array.last()</code>&nbsp;method on any array and it will
+        return the last element. If there are no elements in the array, it
+        should return&nbsp;<code>-1</code>.
+      </p>
+
+      <p>
+        You may assume the array is the output of&nbsp;<code>JSON.parse</code>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [null, {}, 3]
+      <strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected -> 3
+      <strong>Explanation:</strong> Calling nums.last() should return the last element: 3.
+      </pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> nums = []
+      <strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected -> -1
+      <strong>Explanation:</strong> Because there are no elements, return -1.
+      </pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>arr</code> is a valid JSON array</li>
+        <li><code>0 &lt;= arr.length &lt;= 1000</code></li>
+      </ul>
+    </div>
+  </body>
+</html>
