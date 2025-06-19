@@ -8,44 +8,85 @@
     </title>
     <script>
       /**
+       * @param {char} c
+       * @param {string} s1
+       * @param {string} s2
+       * @return {string}
+       */
+      var minLinkedChars = function (c, s1, s2) {
+        let s1_arr = s1.split("");
+        let s2_arr = s2.split("");
+        let linkedStr = [c];
+        let finds = [];
+        finds.push(c);
+        while (finds.length > 0) {
+          // console.log("🚀 ~ linkedChars ~ finds before:", finds)
+          // remove finds in s1 & s2
+          let find = finds.shift();
+          // console.log("🚀 ~ linkedChars ~ find:", find)
+          let indexS1 = s1_arr.indexOf(find);
+          // console.log("🚀 ~ linkedChars ~ s1_arr:", s1_arr)
+          // console.log("🚀 ~ linkedChars ~ indexS1:", indexS1)
+          if (indexS1 >= 0) {
+            linkedStr.push(s1_arr[indexS1]);
+            while (indexS1 >= 0) {
+              linkedStr.push(s2_arr[indexS1]);
+              if (!finds.includes(s2_arr[indexS1])) finds.push(s2_arr[indexS1]);
+              s1_arr[indexS1] = s2_arr[indexS1] = null;
+              indexS1 = s1_arr.indexOf(find, indexS1 + 1);
+            }
+          }
+          let indexS2 = s2_arr.indexOf(find);
+          // console.log("🚀 ~ linkedChars ~ s2_arr:", s2_arr)
+          // console.log("🚀 ~ linkedChars ~ indexS2:", indexS2)
+
+          if (indexS2 >= 0) {
+            linkedStr.push(s2_arr[indexS2]);
+            while (indexS2 >= 0) {
+              linkedStr.push(s1_arr[indexS2]);
+              if (!finds.includes(s1_arr[indexS2])) finds.push(s1_arr[indexS2]);
+              s1_arr[indexS2] = s2_arr[indexS2] = null;
+              indexS2 = s2_arr.indexOf(find, indexS2 + 1);
+            }
+          }
+          // console.log("🚀 ~ linkedChars ~ finds after:", finds)
+        }
+        return linkedStr.sort()[0];
+      };
+
+      /**
        * @param {string} s1
        * @param {string} s2
        * @param {string} baseStr
        * @return {string}
        */
-      var smallestEquivalentString = function (s1, s2, baseStr) {        
-        // build groups of related chars
-        let linkedChars = []
-        let finalStr = []
-        for (let i = 0; i< s1.length; i++) {
-
-        }
-
+      var smallestEquivalentString = function (s1, s2, baseStr) {
+        console.log("🚀 ~ smallestEquivalentString ~ baseStr:", baseStr);
+        console.log("🚀 ~ smallestEquivalentString ~ s1:", s1);
+        console.log("🚀 ~ smallestEquivalentString ~ s2:", s2);
+        if (s1.length == 0) return baseStr;
+        let finalStr = "";
+        let minCharMap = new Map();
         for (let i = 0; i < baseStr.length; i++) {
-          let minChar = baseStr[i];
-          console.log(
-            "🚀 ~ smallestEquivalentString ~ minChar before:",
-            minChar
-          );
-          while (
-            s1.indexOf(minChar) || s2.indexOf(minChar)
-          ) {
-            
-            minChar = minChars.get(minChar);
+          if (minCharMap.get(baseStr[i]))
+            finalStr += minCharMap.get(baseStr[i]);
+          else {
+            let minC = minLinkedChars(baseStr[i], s1, s2);
             console.log(
-              "🚀 ~ smallestEquivalentString ~ minChar after:",
-              minChar
+              "🚀 ~ smallestEquivalentString ~ baseStr[i]:",
+              baseStr[i]
             );
-            if (count++ == 10) break;
+            console.log(
+              "🚀 ~ smallestEquivalentString ~ minLinkedChars:",
+              minC
+            );
+            minCharMap.set(baseStr[i], minC);
+            finalStr += minC;
           }
-          console.log(
-            "🚀 ~ smallestEquivalentString ~ minChar after:",
-            minChar
-          );
-          res += minChar;
         }
-        return res;
+        return finalStr;
       };
+
       document.addEventListener("DOMContentLoaded", function () {
         // Example 1
         document.getElementById("ex1").innerText = smallestEquivalentString(
