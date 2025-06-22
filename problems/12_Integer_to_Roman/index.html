@@ -4,34 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LeetCode 12. Integer to Roman</title>
-    <script>/**
-      * @param {number} num
-      * @return {string}
-      */
-     var intToRoman = function(num) {
-        let mapNums = new Map()
-        mapNums.set(1, "I")
-        mapNums.set(2, "II")
-        mapNums.set(3, "III")
-        mapNums.set(4, "IV")
-        mapNums.set(5, "V")
-        mapNums.set(6, "VI")
-        mapNums.set(7, "VII")
-        mapNums.set(8, "VIII")
-        mapNums.set(9, "IX")
-        mapNums.set(10, "X")
-        mapNums.set(50, "L")
-        mapNums.set(100, "C")
-        mapNums.set(500, "D")
-        mapNums.set(1000, "M")
-        let romanNums = []
-        if (nums>= 1000) {
-          romanNums.push(nums/1000*mapNums.get(1000))
-        } else if (nums >= 500 && nums <= 899) {
+    <script>
+      /**
+       * @param {number} num
+       * @return {string}
+       */
+      var intToRoman = function (num) {
+        let numStr = num.toString().split("").reverse();
+        const thousand = 1000;
+        const hundred = 100;
+        const ten = 10;
+        let mapNums = new Map();
+        mapNums.set(1, "I");
+        mapNums.set(4, "IV");
+        mapNums.set(5, "V");
+        mapNums.set(9, "IX");
+        mapNums.set(10, "X");
+        mapNums.set(40, "XL");
+        mapNums.set(50, "L");
+        mapNums.set(90, "XC");
+        mapNums.set(100, "C");
+        mapNums.set(400, "CD");
+        mapNums.set(500, "D");
+        mapNums.set(900, "CM");
+        mapNums.set(1000, "M");
+        console.log("🚀 ~ intToRoman ~ mapNums:", mapNums)
+        let romanNums = [];
+        console.log("🚀 ~ intToRoman ~ numStr:", numStr)
+        if (numStr.length > 3) {
+          romanNums.push(String(mapNums.get(1000)).repeat(Math.floor(num / 1000)));
+          console.log("🚀 ~ intToRoman ~ romanNums:", romanNums)
+        } 
+        if (numStr.length > 2) {
+          let hundredNumber = Number(numStr[2])
+          if (hundredNumber === 9 || hundredNumber === 4)
+            romanNums.push(mapNums.get(100*hundredNumber))
+          else if (hundredNumber >= 5)
+            romanNums.push(mapNums.get(500) + String(mapNums.get(100)).repeat(hundredNumber-5))
+          else if (hundredNumber >= 1)
+            romanNums.push(String(mapNums.get(100)).repeat(hundredNumber))
+        }
+        if (numStr.length > 1) {
+          let tensNumber = Number(numStr[1])
+          if (tensNumber === 9 || tensNumber === 4)
+            romanNums.push(mapNums.get(10*tensNumber))
+          else if (tensNumber >= 5)
+            romanNums.push(mapNums.get(50) + String(mapNums.get(10)).repeat(tensNumber-5))
+          else if (tensNumber >= 1)
+            romanNums.push(String(mapNums.get(10)).repeat(tensNumber))
+        }
+        if (numStr.length > 0) {
+          let onesNumber = Number(numStr[0])
+          if (onesNumber === 9 || onesNumber === 4)
+            romanNums.push(mapNums.get(onesNumber))
+          else if (onesNumber >= 5)
+            romanNums.push(mapNums.get(5) + String(mapNums.get(1)).repeat(onesNumber-5))
+          else if (onesNumber >= 1)
+            romanNums.push(String(mapNums.get(1)).repeat(onesNumber))
+        }
 
-        } else if (nums >= 500 && nums <= 899) {
-        return romanNums.join("")
-     };
+        return romanNums.join("");
+      };
       document.addEventListener("DOMContentLoaded", function () {
         // Example 1
         document.getElementById("ex1").innerText = intToRoman(3749);
@@ -136,7 +169,9 @@
         </p>
 
         <p>
-          <strong>Output:</strong> <span id="ex1" style="color: red; font-size: large;"></span> ; Expected -> "MMMDCCXLIX"
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> "MMMDCCXLIX"
         </p>
 
         <p><strong>Explanation:</strong></p>
@@ -156,7 +191,11 @@
       <div class="example-block">
         <p><strong>Input:</strong> <span class="example-io">num = 58</span></p>
 
-        <p><strong>Output:</strong> <span id="ex2" style="color: red; font-size: large;"></span> ; Expected -> "LVIII"</p>
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> "LVIII"
+        </p>
 
         <p><strong>Explanation:</strong></p>
 
@@ -175,7 +214,9 @@
         </p>
 
         <p>
-          <strong>Output:</strong> <span id="ex1" style="color: red; font-size: large;"></span> ; Expected -> "MCMXCIV"
+          <strong>Output:</strong>
+          <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> "MCMXCIV"
         </p>
 
         <p><strong>Explanation:</strong></p>
