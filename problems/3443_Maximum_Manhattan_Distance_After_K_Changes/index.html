@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 3443. Maximum Manhattan Distance After K Changes</title>
+    <script>
+      /**
+       * @param {string} s
+       * @param {number} k
+       * @return {number}
+       */
+      var maxDistance = function (s, k) {
+        let ans = 0;
+        let north = 0,
+          south = 0,
+          east = 0,
+          west = 0;
+        for (const it of s) {
+          switch (it) {
+            case "N":
+              north++;
+              break;
+            case "S":
+              south++;
+              break;
+            case "E":
+              east++;
+              break;
+            case "W":
+              west++;
+              break;
+          }
+
+          const count = (drt1, drt2, times) => {
+            return Math.abs(drt1 - drt2) + times * 2; // Calculate modified Manhattan distance
+          };
+
+          let times1 = Math.min(north, south, k); // modification times for N and S
+          let times2 = Math.min(east, west, k - times1); // modification times for E and W
+          ans = Math.max(
+            ans,
+            count(north, south, times1) + count(east, west, times2)
+          );
+        }
+        return ans;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = maxDistance("NWSE", 1);
+
+        // Example 2
+        document.getElementById("ex2").innerText = maxDistance("NSWWEW", 3);
+
+        // Example 3
+        document.getElementById("ex3").innerText = maxDistance("NSES", 1);
+
+        // Example 4
+        document.getElementById("ex4").innerText = maxDistance("EWWE", 1);
+
+        // Example 4
+        document.getElementById("ex5").innerText = maxDistance("ENNSW", 1);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 3443. Maximum Manhattan Distance After K Changes</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        You are given a string <code>s</code> consisting of the characters
+        <code>'N'</code>, <code>'S'</code>, <code>'E'</code>, and
+        <code>'W'</code>, where <code>s[i]</code> indicates movements in an
+        infinite grid:
+      </p>
+
+      <ul>
+        <li><code>'N'</code> : Move north by 1 unit.</li>
+        <li><code>'S'</code> : Move south by 1 unit.</li>
+        <li><code>'E'</code> : Move east by 1 unit.</li>
+        <li><code>'W'</code> : Move west by 1 unit.</li>
+      </ul>
+
+      <p>
+        Initially, you are at the origin <code>(0, 0)</code>. You can change
+        <strong>at most</strong> <code>k</code> characters to any of the four
+        directions.
+      </p>
+
+      <p>
+        Find the <strong>maximum</strong>
+        <strong>Manhattan distance</strong> from the origin that can be achieved
+        <strong>at any time</strong> while performing the movements
+        <strong>in order</strong>.
+      </p>
+      The <strong>Manhattan Distance</strong> between two cells
+      <code>(x<sub>i</sub>, y<sub>i</sub>)</code> and
+      <code>(x<sub>j</sub>, y<sub>j</sub>)</code> is
+      <code
+        >|x<sub>i</sub> - x<sub>j</sub>| + |y<sub>i</sub> - y<sub>j</sub>|</code
+      >.
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">s = "NWSE", k = 1</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> 3
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          Change <code>s[2]</code> from <code>'S'</code> to <code>'N'</code>.
+          The string <code>s</code> becomes <code>"NWNE"</code>.
+        </p>
+
+        <table style="border: 1px solid black">
+          <thead>
+            <tr>
+              <th style="border: 1px solid black">Movement</th>
+              <th style="border: 1px solid black">Position (x, y)</th>
+              <th style="border: 1px solid black">Manhattan Distance</th>
+              <th style="border: 1px solid black">Maximum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="border: 1px solid black">s[0] == 'N'</td>
+              <td style="border: 1px solid black">(0, 1)</td>
+              <td style="border: 1px solid black">0 + 1 = 1</td>
+              <td style="border: 1px solid black">1</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid black">s[1] == 'W'</td>
+              <td style="border: 1px solid black">(-1, 1)</td>
+              <td style="border: 1px solid black">1 + 1 = 2</td>
+              <td style="border: 1px solid black">2</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid black">s[2] == 'N'</td>
+              <td style="border: 1px solid black">(-1, 2)</td>
+              <td style="border: 1px solid black">1 + 2 = 3</td>
+              <td style="border: 1px solid black">3</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid black">s[3] == 'E'</td>
+              <td style="border: 1px solid black">(0, 2)</td>
+              <td style="border: 1px solid black">0 + 2 = 2</td>
+              <td style="border: 1px solid black">3</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          The maximum Manhattan distance from the origin that can be achieved is
+          3. Hence, 3 is the output.
+        </p>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">s = "NSWWEW", k = 3</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> 6
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          Change <code>s[1]</code> from <code>'S'</code> to <code>'N'</code>,
+          and <code>s[4]</code> from <code>'E'</code> to <code>'W'</code>. The
+          string <code>s</code> becomes <code>"NNWWWW"</code>.
+        </p>
+
+        <p>
+          The maximum Manhattan distance from the origin that can be achieved is
+          6. Hence, 6 is the output.
+        </p>
+      </div>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">s = "NSES", k = 1</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> 4
+        </p>
+      </div>
+
+      <p><strong class="example">Example 4:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">s = "EWWE", k = 1</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex4" style="color: red; font-size: large"></span> ; Expected
+          -> 3
+        </p>
+      </div>
+
+      <p><strong class="example">Example 5:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">s = "ENNSW", k = 1</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex5" style="color: red; font-size: large"></span> ; Expected
+          -> 4
+        </p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= s.length &lt;= 10<sup>5</sup></code>
+        </li>
+        <li><code>0 &lt;= k &lt;= s.length</code></li>
+        <li>
+          <code>s</code> consists of only <code>'N'</code>, <code>'S'</code>,
+          <code>'E'</code>, and <code>'W'</code>.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

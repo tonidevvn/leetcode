@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 3085. Minimum Deletions to Make String K-Special</title>
+    <script>
+      /**
+       * @param {string} word
+       * @param {number} k
+       * @return {number}
+       */
+      var minimumDeletions = function (word, k) {
+        console.log("🚀 ~ minimumDeletions ~ word:", word);
+
+        let char_count = new Array(26).fill(0);
+        for (let i = 0; i < word.length; i++) {
+          char_count[word.charCodeAt(i) - "a".charCodeAt(0)]++;
+        }
+        let sorted_char_count = char_count.filter((v) => v != 0).sort((a,b) => a - b);
+        if (sorted_char_count.length <= 1) return 0;
+        else {
+          console.log(
+            "🚀 ~ minimumDeletions ~ sorted_char_count:",
+            sorted_char_count
+          );
+          let delete_count = 0;
+          let min_delete_count = 0;
+          let breakCount = 0;
+          while (1) {
+            if (sorted_char_count.length == 1) break;
+            let minCount = sorted_char_count[0];
+            let minCountTimes = sorted_char_count.filter(
+              (v) => v === sorted_char_count[0]
+            ).length;
+            let maxCount = sorted_char_count[sorted_char_count.length - 1];
+            if (maxCount - minCount <= k) break;
+
+            let sumCount = 0;
+            for (let j = 1; j < sorted_char_count.length; j++)
+              if (sorted_char_count[j] > minCount + k) {
+                sumCount += sorted_char_count[j] - (minCount + k);
+              }
+            min_delete_count =
+              min_delete_count == 0
+                ? delete_count + sumCount
+                : Math.min(min_delete_count, delete_count + sumCount);
+            if (minCount * minCountTimes < sumCount) {
+              for (let j = 0; j < minCountTimes; j++) sorted_char_count.shift();
+              delete_count += minCount * minCountTimes;
+            } else {
+              delete_count += sumCount;
+              break;
+            }
+          }
+          min_delete_count =
+            min_delete_count == 0
+              ? delete_count
+              : Math.min(min_delete_count, delete_count);
+          return min_delete_count;
+        }
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = minimumDeletions(
+          (word = "aabcaba"),
+          (k = 0)
+        );
+
+        // Example 2
+        document.getElementById("ex2").innerText = minimumDeletions(
+          (word = "dabdcbdcdcd"),
+          (k = 2)
+        );
+
+        // Example 3
+        document.getElementById("ex3").innerText = minimumDeletions(
+          (word = "aaabaaa"),
+          (k = 2)
+        );
+
+        // Example 4
+        document.getElementById("ex4").innerText = minimumDeletions(
+          (word = "rprrrrrrrrrp"),
+          (k = 0)
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 3085. Minimum Deletions to Make String K-Special</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        You are given a string <code>word</code> and an integer <code>k</code>.
+      </p>
+
+      <p>
+        We consider <code>word</code> to be <strong>k-special</strong> if
+        <code>|freq(word[i]) - freq(word[j])| &lt;= k</code> for all indices
+        <code>i</code> and <code>j</code> in the string.
+      </p>
+
+      <p>
+        Here, <code>freq(x)</code> denotes the
+        <span
+          data-keyword="frequency-letter"
+          class="cursor-pointer relative text-dark-blue-s text-sm"
+          ><button
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="radix-:rs:"
+            data-state="closed"
+            class=""
+          >
+            frequency
+          </button></span
+        >
+        of the character <code>x</code> in <code>word</code>, and
+        <code>|y|</code> denotes the absolute value of <code>y</code>.
+      </p>
+
+      <p>
+        Return
+        <em
+          >the <strong>minimum</strong> number of characters you need to delete
+          to make</em
+        >
+        <code>word</code> <strong><em>k-special</em></strong
+        >.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div
+        class="example-block"
+        style="
+          border-color: var(--border-tertiary);
+          border-left-width: 2px;
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+          margin-bottom: 1rem;
+          margin-top: 1rem;
+          overflow: visible;
+          padding-left: 1rem;
+        "
+      >
+        <p>
+          <strong>Input: </strong
+          ><span
+            class="example-io"
+            style="font-family: Menlo, sans-serif; font-size: 0.85rem"
+            >word = "aabcaba", k = 0</span
+          >
+        </p>
+
+        <p>
+          <strong>Output: </strong
+          ><span id="ex1" style="color: red; font-size: large"></span> ;
+          Expected -> 3
+        </p>
+
+        <p>
+          <strong>Explanation:</strong> We can make <code>word</code>
+          <code>0</code>-special by deleting <code>2</code> occurrences of
+          <code>"a"</code> and <code>1</code> occurrence of <code>"c"</code>.
+          Therefore, <code>word</code> becomes equal to
+          <code>"baba"</code> where <code>freq('a') == freq('b') == 2</code>.
+        </p>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div
+        class="example-block"
+        style="
+          border-color: var(--border-tertiary);
+          border-left-width: 2px;
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+          margin-bottom: 1rem;
+          margin-top: 1rem;
+          overflow: visible;
+          padding-left: 1rem;
+        "
+      >
+        <p>
+          <strong>Input: </strong
+          ><span
+            class="example-io"
+            style="font-family: Menlo, sans-serif; font-size: 0.85rem"
+            >word = "dabdcbdcdcd", k = 2</span
+          >
+        </p>
+
+        <p>
+          <strong>Output: </strong
+          ><span id="ex2" style="color: red; font-size: large"></span> ;
+          Expected -> 2
+        </p>
+
+        <p>
+          <strong>Explanation:</strong> We can make <code>word</code>
+          <code>2</code>-special by deleting <code>1</code> occurrence of
+          <code>"a"</code> and <code>1</code> occurrence of <code>"d"</code>.
+          Therefore, <code>word</code> becomes equal to "bdcbdcdcd" where
+          <code>freq('b') == 2</code>, <code>freq('c') == 3</code>, and
+          <code>freq('d') == 4</code>.
+        </p>
+      </div>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <div
+        class="example-block"
+        style="
+          border-color: var(--border-tertiary);
+          border-left-width: 2px;
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+          margin-bottom: 1rem;
+          margin-top: 1rem;
+          overflow: visible;
+          padding-left: 1rem;
+        "
+      >
+        <p>
+          <strong>Input: </strong
+          ><span
+            class="example-io"
+            style="font-family: Menlo, sans-serif; font-size: 0.85rem"
+            >word = "aaabaaa", k = 2</span
+          >
+        </p>
+
+        <p>
+          <strong>Output: </strong
+          ><span id="ex3" style="color: red; font-size: large"></span> ;
+          Expected -> 1
+        </p>
+      </div>
+
+      <p><strong class="example">Example 4:</strong></p>
+
+      <div
+        class="example-block"
+        style="
+          border-color: var(--border-tertiary);
+          border-left-width: 2px;
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+          margin-bottom: 1rem;
+          margin-top: 1rem;
+          overflow: visible;
+          padding-left: 1rem;
+        "
+      >
+        <p>
+          <strong>Input: </strong
+          ><span
+            class="example-io"
+            style="font-family: Menlo, sans-serif; font-size: 0.85rem"
+            >word = "rprrrrrrrrrp", k = 0</span
+          >
+        </p>
+
+        <p>
+          <strong>Output: </strong
+          ><span id="ex4" style="color: red; font-size: large"></span> ;
+          Expected -> 2
+        </p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= word.length &lt;= 10<sup>5</sup></code>
+        </li>
+        <li>
+          <code>0 &lt;= k &lt;= 10<sup>5</sup></code>
+        </li>
+        <li><code>word</code> consists only of lowercase English letters.</li>
+      </ul>
+    </div>
+  </body>
+</html>
