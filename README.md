@@ -4,9 +4,9 @@ Welcome! This README tracks my progress and solutions for LeetCode problems.
 
 ## 📈 Progress
 
-- 😎 Problems Solved: 107
-- ❤️‍🔥 Easy 70/883, 🤔 Med 34/1866, 😑 Hard 3/845
-- ⌛️ Last Updated: Jun 28, 2025
+- 😎 Problems Solved: 111
+- ❤️‍🔥 Easy 73/883, 🤔 Med 35/1866, 😑 Hard 3/845
+- ⌛️ Last Updated: Jun 29, 2025
 
 ## 🚀 How to Use
 
