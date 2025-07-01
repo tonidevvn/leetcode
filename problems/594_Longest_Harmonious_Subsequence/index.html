@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 594. Longest Harmonious Subsequence</title>
+    <script>
+      /**
+       * @param {number[]} nums
+       * @return {number}
+       */
+      var findLHS = function (nums) {
+        console.log("🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀");
+        console.log("🚀 ~ findLHS ~ nums:", nums);
+        // Use a single pass to count occurrences, then find max harmonious length
+        let maxLen = 0;
+        let freq = new Map();
+        for (let num of nums) {
+          freq.set(num, (freq.get(num) || 0) + 1);
+        }
+        for (let [num, count] of freq) {
+          if (freq.has(num + 1)) {
+            maxLen = Math.max(maxLen, count + freq.get(num + 1));
+          }
+        }
+        return maxLen;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = findLHS([
+          1, 3, 2, 2, 5, 2, 3, 7,
+        ]);
+
+        // Example 2
+        document.getElementById("ex2").innerText = findLHS([1, 2, 3, 4]);
+
+        // Example 3
+        document.getElementById("ex3").innerText = findLHS([1, 1, 1, 1]);
+
+        // Example 4
+        document.getElementById("ex4").innerText = findLHS([
+          -3, -1, -1, -1, -3, -2,
+        ]);
+
+        // Example 5
+        document.getElementById("ex5").innerText = findLHS([
+          10, 2, 1, 4, 9, 2, 3, 8, 10, 8, 3, 5, 8, 5, 0, 8, 8, 6, 0, 6, 9, 8, 4,
+          4, 5, 4, 0, 1, 10, 8, 10, 3, 10, 2, 8, 8, 7, 4, 3, 7, 2, 5, 3, 7, 6,
+          5, 6, 9, 1, 1, 2, 7, 7, 4, 10, 8, 3, -1, 7, 5, 2, 7, 0, 8, 4, 6, 7, 3,
+          4, 7, 1, 8, 4, 1, 3, 6, 0, 5, 2, 10,
+        ]);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 594. Longest Harmonious Subsequence</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        We define a harmonious array as an array where the difference between
+        its maximum value and its minimum value is <b>exactly</b>
+        <code>1</code>.
+      </p>
+
+      <p>
+        Given an integer array <code>nums</code>, return the length of its
+        longest harmonious
+        <span
+          data-keyword="subsequence-array"
+          class="cursor-pointer relative text-dark-blue-s text-sm"
+          ><button
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="radix-:rs:"
+            data-state="closed"
+            class=""
+          >
+            subsequence
+          </button></span
+        >
+        among all its possible subsequences.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">nums = [1,3,2,2,5,2,3,7]</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> 5
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>The longest harmonious subsequence is <code>[3,2,2,2,3]</code>.</p>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">nums = [1,2,3,4]</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> 2
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          The longest harmonious subsequences are <code>[1,2]</code>,
+          <code>[2,3]</code>, and <code>[3,4]</code>, all of which have a length
+          of 2.
+        </p>
+      </div>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">nums = [1,1,1,1]</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> 0
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>No harmonic subsequence exists.</p>
+      </div>
+
+      <p><strong class="example">Example 4:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">nums = [-3,-1,-1,-1,-3,-2]</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex4" style="color: red; font-size: large"></span> ; Expected
+          -> 4
+        </p>
+      </div>
+      <p><strong class="example">Example 5:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io"
+            >nums =
+            [10,2,1,4,9,2,3,8,10,8,3,5,8,5,0,8,8,6,0,6,9,8,4,4,5,4,0,1,10,8,10,3,10,2,8,8,7,4,3,7,2,5,3,7,6,5,6,9,1,1,2,7,7,4,10,8,3,-1,7,5,2,7,0,8,4,6,7,3,4,7,1,8,4,1,3,6,0,5,2,10]</span
+          >
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex5" style="color: red; font-size: large"></span> ; Expected
+          -> 21
+        </p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= nums.length &lt;= 2 * 10<sup>4</sup></code>
+        </li>
+        <li>
+          <code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

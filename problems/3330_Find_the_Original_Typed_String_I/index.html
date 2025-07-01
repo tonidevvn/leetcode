@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 3330. Find the Original Typed String I</title>
+    <script>
+      /**
+       * @param {string} word
+       * @return {number}
+       */
+      var possibleStringCount = function (word) {
+        let chars = word.split("");
+        let count = 1;
+        console.log("🚀 ~ possibleStringCount ~ chars:", chars);
+        let repeatedChars = chars.map((v, index) =>
+          index > 0 && v === chars[index - 1] ? 1 : v
+        );
+        console.log("🚀 ~ possibleStringCount ~ repeatedChars:", repeatedChars);
+        count += repeatedChars.filter((v) => v === 1).length;
+        return count;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText =
+          possibleStringCount("abbcccc");
+
+        // Example 2
+        document.getElementById("ex2").innerText = possibleStringCount("abcd");
+
+        // Example 3
+        document.getElementById("ex3").innerText = possibleStringCount("aaaa");
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 3330. Find the Original Typed String I</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Alice is attempting to type a specific string on her computer. However,
+        she tends to be clumsy and <strong>may</strong> press a key for too
+        long, resulting in a character being typed
+        <strong>multiple</strong> times.
+      </p>
+
+      <p>
+        Although Alice tried to focus on her typing, she is aware that she may
+        still have done this <strong>at most</strong> <em>once</em>.
+      </p>
+
+      <p>
+        You are given a string <code>word</code>, which represents the
+        <strong>final</strong> output displayed on Alice's screen.
+      </p>
+
+      <p>
+        Return the total number of <em>possible</em> original strings that Alice
+        <em>might</em> have intended to type.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">word = "abbcccc"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span> ->
+          Expected: 5
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          The possible strings are: <code>"abbcccc"</code>,
+          <code>"abbccc"</code>, <code>"abbcc"</code>, <code>"abbc"</code>, and
+          <code>"abcccc"</code>.
+        </p>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong> <span class="example-io">word = "abcd"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ->
+          Expected: 1
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>The only possible string is <code>"abcd"</code>.</p>
+      </div>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong> <span class="example-io">word = "aaaa"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex3" style="color: red; font-size: large"></span> ->
+          Expected: 4
+        </p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= word.length &lt;= 100</code></li>
+        <li><code>word</code> consists only of lowercase English letters.</li>
+      </ul>
+    </div>
+  </body>
+</html>
