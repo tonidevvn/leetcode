@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 3333. Find the Original Typed String II</title>
+    <script>
+      /**
+       * @param {string} word
+       * @param {number} k
+       * @return {number}
+       */
+      var possibleStringCount = function (word, k) {
+        const MOD = 1e9 + 7;
+
+        let counts = []; // Stores lengths of consecutive identical character groups
+        let total_product = 1;
+        let num_groups = 0;
+
+        let i = 0;
+        while (i < word.length) {
+          let j = i;
+          while (j < word.length && word[j] === word[i]) {
+            j++;
+          }
+          let group_len = j - i;
+          counts.push(group_len);
+          total_product = (total_product * group_len) % MOD;
+          num_groups++;
+          i = j;
+        }
+
+        // If the minimum possible length (num_groups) is already >= k,
+        // then all total_product combinations are valid.
+        if (k <= num_groups) {
+          return total_product;
+        }
+
+        // dp[j] will store the number of ways to form an original string of length j.
+        // We only need to calculate for lengths less than k.
+        let dp = new Array(k).fill(0);
+        dp[0] = 1; // Base case: one way to form an empty string (length 0).
+
+        // Iterate through each group's possible contributions
+        for (let g of counts) {
+          // Create a new DP array for the current iteration to avoid using
+          // values from the current group's calculation in the same iteration.
+          let new_dp = new Array(k).fill(0);
+          let sum_val = 0; // This will hold the sum dp[j-1] + ... + dp[j-g]
+
+          // j represents the target length for the current new_dp value.
+          // We iterate from 1 to k-1 to build up new_dp values.
+          for (let j = 1; j < k; j++) {
+            // Add the new term dp[j-1] to the sliding window sum
+            sum_val = (sum_val + dp[j - 1]) % MOD;
+
+            // If j-g-1 is a valid index, remove dp[j-g-1] from the window sum
+            // This is because it falls out of the range [j-g, j-1]
+            if (j - g - 1 >= 0) {
+              sum_val = (sum_val - dp[j - g - 1] + MOD) % MOD;
+            }
+            new_dp[j] = sum_val;
+          }
+          dp = new_dp;
+        }
+
+        // Calculate the sum of ways to form strings with length less than k.
+        let sum_less_than_k = 0;
+        for (let j = 0; j < k; j++) {
+          sum_less_than_k = (sum_less_than_k + dp[j]) % MOD;
+        }
+
+        // The result is total_product - sum_less_than_k.
+        // Add MOD to ensure positive result before taking modulo.
+        return (total_product - sum_less_than_k + MOD) % MOD;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = possibleStringCount(
+          (word = "aabbccdd"),
+          (k = 7)
+        );
+
+        // Example 2
+        document.getElementById("ex2").innerText = possibleStringCount(
+          (word = "aabbccdd"),
+          (k = 8)
+        );
+
+        // Example 3
+        document.getElementById("ex3").innerText = possibleStringCount(
+          (word = "aaabbb"),
+          (k = 3)
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 3333. Find the Original Typed String II</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Alice is attempting to type a specific string on her computer. However,
+        she tends to be clumsy and <strong>may</strong> press a key for too
+        long, resulting in a character being typed
+        <strong>multiple</strong> times.
+      </p>
+
+      <p>
+        You are given a string <code>word</code>, which represents the
+        <strong>final</strong> output displayed on Alice's screen. You are also
+        given a <strong>positive</strong> integer <code>k</code>.
+      </p>
+
+      <p>
+        Return the total number of <em>possible</em> original strings that Alice
+        <em>might</em> have intended to type, if she was trying to type a string
+        of size <strong>at least</strong> <code>k</code>.
+      </p>
+
+      <p>
+        Since the answer may be very large, return it <strong>modulo</strong>
+        <code>10<sup>9</sup> + 7</code>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">word = "aabbccdd", k = 7</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span> ->
+          Expected: 5
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          The possible strings are: <code>"aabbccdd"</code>,
+          <code>"aabbccd"</code>, <code>"aabbcdd"</code>,
+          <code>"aabccdd"</code>, and <code>"abbccdd"</code>.
+        </p>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">word = "aabbccdd", k = 8</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ->
+          Expected: 1
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>The only possible string is <code>"aabbccdd"</code>.</p>
+      </div>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">word = "aaabbb", k = 3</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex3" style="color: red; font-size: large"></span> ->
+          Expected: 8
+        </p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= word.length &lt;= 5 * 10<sup>5</sup></code>
+        </li>
+        <li><code>word</code> consists only of lowercase English letters.</li>
+        <li><code>1 &lt;= k &lt;= 2000</code></li>
+      </ul>
+    </div>
+  </body>
+</html>

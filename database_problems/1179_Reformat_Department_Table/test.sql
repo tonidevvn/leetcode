@@ -46,7 +46,6 @@ Explanation: The revenue from Apr to Dec is null.
 Note that the result table has 13 columns (1 for the department id + 12 for the months).
 */
 -- Final SQL command --
-# Write your MySQL query statement below
 select distinct id, sum(if(month="Jan", revenue, null)) as Jan_Revenue,
 sum(if(month="Feb", revenue, null)) as Feb_Revenue,
 sum(if(month="Mar", revenue, null)) as Mar_Revenue,

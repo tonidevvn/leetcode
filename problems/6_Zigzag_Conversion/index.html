@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 6. Zigzag Conversion</title>
+    <script>
+      /**
+       * @param {string} s
+       * @param {number} numRows
+       * @return {string}
+       */
+      var convert = function (s, numRows) {
+        if (numRows == 1) return s
+
+        let chars = s.split("");
+        console.log("🚀 ~ convert ~ chars:", chars)
+        let charsMatrix = new Array(numRows);
+        let maxCol = numRows; // cols of |/|
+        let charsLen = chars.length;
+        charsLen -= numRows*3-2
+        while(charsLen > 0) {
+          charsLen -= numRows*2-2
+          maxCol += numRows - 1  // cols of /|
+        }
+        console.log("🚀 ~ convert ~ maxCol:", maxCol)
+        for (let i = 0; i < numRows; i++) {
+          charsMatrix[i] = new Array(maxCol).fill('0');
+        }
+        console.log("🚀 ~ convert ~ charsMatrix:", charsMatrix)
+        let row = 0,
+          col = 0;
+          let count = 0;
+        while (chars.length > 0) {
+          while (chars.length > 0 && ((row > 0 && row < numRows - 1) || row == 0)) {
+            charsMatrix[row++][col] = chars.shift();
+            console.log("🚀 ~ convert ~ chars:", chars)
+          }
+          // reverse row
+          while (chars.length > 0 && row > 0) {
+            charsMatrix[row--][col++] = chars.shift();    
+            console.log("🚀 ~ convert ~ chars:", chars)
+          }
+          console.log("🚀 ~ convert ~ chars.length:", chars.length)
+        }
+        console.log("🚀 ~ convert ~ col:", col)
+        // merge string
+       console.log("🚀 ~ convert ~ charsMatrix final:", charsMatrix)
+        let finalStr = [];
+        for (let i = 0; i < numRows; i++) {
+          for (let j = 0; j <= col; j++) {
+            if (charsMatrix[i][j] != '0') {
+              finalStr.push(charsMatrix[i][j]);
+            }
+          }
+        }
+        console.log("🚀 ~ convert ~ finalStr:", finalStr.join(""));
+        return finalStr.join("");
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = convert(
+          (s = "PAYPALISHIRING"),
+          (numRows = 3)
+        );
+
+        // Example 2
+        document.getElementById("ex2").innerText = convert(
+          (s = "PAYPALISHIRING"),
+          (numRows = 4)
+        );
+
+        // Example 3
+        document.getElementById("ex3").innerText = convert(
+          (s = "A"),
+          (numRows = 1)
+        );
+
+        // Example 4
+        document.getElementById("ex4").innerText = convert(
+          (s = "AB"),
+          (numRows = 1)
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 6. Zigzag Conversion</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        The string <code>"PAYPALISHIRING"</code> is written in a zigzag pattern
+        on a given number of rows like this: (you may want to display this
+        pattern in a fixed font for better legibility)
+      </p>
+
+      <pre>
+P   A   H   N
+      A P L S I I G
+      Y   I   R
+      </pre>
+
+      <p>And then read line by line: <code>"PAHNAPLSIIGYIR"</code></p>
+
+      <p>
+        Write the code that will take a string and make this conversion given a
+        number of rows:
+      </p>
+
+      <pre>
+string convert(string s, int numRows);
+      </pre>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> s = "PAYPALISHIRING", numRows = 3
+      <strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span>; Expected
+      -> "PAHNAPLSIIGYIR"
+      </pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> s = "PAYPALISHIRING", numRows = 4
+      <strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span>; Expected
+      -> "PINALSIGYAHRPI"
+      <strong>Explanation:</strong>
+      P     I    N
+      A   L S  I G
+      Y A   H R
+      P     I
+      </pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> s = "A", numRows = 1
+      <strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span>; Expected
+      -> "A"
+      </pre>
+
+      <p><strong class="example">Example 4:</strong></p>
+
+      <pre><strong>Input:</strong> s = "AB", numRows = 1
+      <strong>Output:</strong> <span id="ex4" style="color: red; font-size: large"></span>; Expected
+      -> "AB"
+      </pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= s.length &lt;= 1000</code></li>
+        <li>
+          <code>s</code> consists of English letters (lower-case and
+          upper-case), <code>','</code> and <code>'.'</code>.
+        </li>
+        <li><code>1 &lt;= numRows &lt;= 1000</code></li>
+      </ul>
+    </div>
+  </body>
+</html>
