@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 7. Reverse Integer</title>
+    <script>
+      /**
+       * @param {number} x
+       * @return {number}
+       */
+      var reverse = function (x) {
+        console.log("🚀 ~ reverse ~ x:", x)
+        let max = 2 ** 31 - 1;
+        let min = 2 ** 31 * -1;
+        let sign = 1;
+        if (x > max || x < min) return 0;
+        if (x < 0) {
+          sign *= -1;
+          console.log("🚀 ~ reverse ~ sign:", sign)
+        }
+        let chars = x.toString().split("");
+        if (sign < 0) chars = chars.slice(1)
+        let num = Number(chars.reverse().join(""));
+        num *= sign;
+        console.log("🚀 ~ reverse ~ num:", num)
+        if (num > max || num < min) return 0;
+        return num;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = reverse(123);
+
+        // Example 2
+        document.getElementById("ex2").innerText = reverse(-123);
+
+        // Example 3
+        document.getElementById("ex3").innerText = reverse(120);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 7. Reverse Integer</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a signed 32-bit integer <code>x</code>, return <code>x</code
+        ><em> with its digits reversed</em>. If reversing <code>x</code> causes
+        the value to go outside the signed 32-bit integer range
+        <code>[-2<sup>31</sup>, 2<sup>31</sup> - 1]</code>, then return
+        <code>0</code>.
+      </p>
+
+      <p>
+        <strong
+          >Assume the environment does not allow you to store 64-bit integers
+          (signed or unsigned).</strong
+        >
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> x = 123
+      <strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span>; Expected
+      -> 321
+      </pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> x = -123
+      <strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span>; Expected
+      -> -321
+      </pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> x = 120
+      <strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span>; Expected
+      -> 21
+      </pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>-2<sup>31</sup> &lt;= x &lt;= 2<sup>31</sup> - 1</code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

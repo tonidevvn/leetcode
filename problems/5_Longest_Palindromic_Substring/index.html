@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 5. Longest Palindromic Substring</title>
+    <script>
+      /**
+       * @param {string} s
+       * @return {string}
+       */
+      var longestPalindrome = function (s) {
+        if (s.length <= 1 || (s.length == 2 && s[0] == s[1])) return s;
+
+        let chars = s.split("");
+        console.log("🚀 ~ longestPalindrome ~ chars:", chars);
+        let longestStr = s[0];
+        let len = chars.length;
+        for (let i = 0; i < len - 1; i++) {
+          let left = i;
+          let right = i + 1;
+          if (
+            chars[left] == chars[right] ||
+            (right < len - 1 &&
+              chars[left] != chars[right] &&
+              chars[left] == chars[right + 1])
+          ) {
+            let count = 1;
+            if (chars[left] != chars[right]) right++;
+            else {
+              // check center
+              let countl = 1,
+                countr = 1;
+              while (left - countl >= 0 && chars[left] == chars[left - countl])
+                countl++;
+              while (
+                right + countr < len &&
+                chars[right] == chars[right + countr]
+              )
+                countr++;
+              let total = countl + countr;
+              if (total > 2) {
+                left += Math.floor(total / 2) - 1;
+                right = left + (total % 2 == 1 ? 2 : 1);
+                i += total - 2
+              }
+            }
+            while (
+              left - count >= 0 &&
+              right + count < len &&
+              chars[left - count] == chars[right + count]
+            ) {
+              count++;
+            }
+            let newStr = s.slice(left - count + 1, right + count);
+            if (newStr.length > longestStr.length) {
+              longestStr = newStr;
+            }
+          }
+        }
+        return longestStr;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = longestPalindrome("babad");
+
+        // Example 2
+        document.getElementById("ex2").innerText = longestPalindrome("cbbd");
+
+        // Example 3
+        document.getElementById("ex3").innerText = longestPalindrome("ccd");
+
+        // Example 4
+        document.getElementById("ex4").innerText =
+          longestPalindrome("aaaabaaa");
+
+        // Example 5
+        document.getElementById("ex5").innerText =
+          longestPalindrome("aaabaaaa");
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 5. Longest Palindromic Substring</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a string <code>s</code>, return <em>the longest</em>
+        <span
+          data-keyword="palindromic-string"
+          class="cursor-pointer relative text-dark-blue-s text-sm"
+          ><button
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="radix-:r70:"
+            data-state="closed"
+            class=""
+          >
+            <em>palindromic</em>
+          </button></span
+        >
+        <span
+          data-keyword="substring-nonempty"
+          class="cursor-pointer relative text-dark-blue-s text-sm"
+          ><button
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="radix-:r71:"
+            data-state="closed"
+            class=""
+          >
+            <em>substring</em>
+          </button></span
+        >
+        in <code>s</code>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> s = "babad"
+      <strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span>; Expected
+      -> "bab"
+      <strong>Explanation:</strong> "aba" is also a valid answer.
+      </pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> s = "cbbd"
+      <strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span>; Expected
+      -> "bb"
+      </pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> s = "ccd"
+      <strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span>; Expected
+      -> "cc"
+      </pre>
+      <p><strong class="example">Example 4:</strong></p>
+
+      <pre><strong>Input:</strong> s = "aaaabaaa"
+      <strong>Output:</strong> <span id="ex4" style="color: red; font-size: large"></span>; Expected
+      -> "aaabaaa"
+      </pre>
+      <p><strong class="example">Example 5:</strong></p>
+
+      <pre><strong>Input:</strong> s = "aaabaaaa"
+      <strong>Output:</strong> <span id="ex5" style="color: red; font-size: large"></span>; Expected
+      -> "aaabaaa"
+      </pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= s.length &lt;= 1000</code></li>
+        <li><code>s</code> consist of only digits and English letters.</li>
+      </ul>
+    </div>
+  </body>
+</html>
