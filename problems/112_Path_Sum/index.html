@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 112. Path Sum</title>
+    <script>
+      /**
+       * Definition for a binary tree node.
+       */
+      function TreeNode(val, left, right) {
+        this.val = val === undefined ? 0 : val;
+        this.left = left === undefined ? null : left;
+        this.right = right === undefined ? null : right;
+      }
+
+      /**
+       * @param {TreeNode} root
+       * @param {number} targetSum
+       * @return {boolean}
+       */
+      var hasPathSum = function (root, targetSum) {
+        /**
+         * @param {TreeNode} node
+         * @param {number} sum
+         * @param {number} targetSum
+         * @return [{number}, {boolean}]
+         */
+        const pathSum = (node, sum, targetSum) => {
+          if (node == null) {
+            return [sum, false];
+          } 
+
+          sum += node?.val;
+          if (node.left == null && node.right == null) {
+            console.log("🚀 ~ pathSum ~ node.val:", node.val);
+            // node leaf
+
+            console.log("🚀 ~ pathSum ~ sum === targetSum:", sum === targetSum)
+            console.log("🚀 ~ pathSum ~ sum:", sum)
+            return [sum, sum === targetSum];
+          } else {
+            let [leftSum, lcheck] = pathSum(node.left, sum, targetSum);
+            if (lcheck == true) return [sum, true];
+
+            let [rightSum, rcheck] = pathSum(node.right, sum, targetSum);
+            if (rcheck == true) return [sum, true];
+
+            return [sum, false];
+          }
+        };
+
+        console.log("🚀🚀🚀🚀🚀🚀🚀")
+        console.log("🚀 ~ Started with hasPathSum ~ root:", root?.val || ' ')
+        let [sum, sumcheck] = pathSum(root, 0, targetSum);
+        console.log("🚀 ~ hasPathSum ~ sumcheck:", sumcheck)
+        return sumcheck;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        let root1 = new TreeNode(
+          5,
+          new TreeNode(
+            4,
+            new TreeNode(11, new TreeNode(7), new TreeNode(2)),
+            null
+          ),
+          new TreeNode(
+            8,
+            new TreeNode(13),
+            new TreeNode(4, null, new TreeNode(1))
+          )
+        );
+        document.getElementById("ex1").innerText = hasPathSum(root1, 22);
+        // Example 2
+        let root2 = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+        document.getElementById("ex2").innerText = hasPathSum(root2, 5);
+        // Example 3
+        let root3 = null;
+        document.getElementById("ex3").innerText = hasPathSum(root3, 0);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 112. Path Sum</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given the <code>root</code> of a binary tree and an integer
+        <code>targetSum</code>, return <code>true</code> if the tree has a
+        <strong>root-to-leaf</strong> path such that adding up all the values
+        along the path equals <code>targetSum</code>.
+      </p>
+
+      <p>A <strong>leaf</strong> is a node with no children.</p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2021/01/18/pathsum1.jpg"
+        style="width: 500px; height: 356px"
+      />
+      <pre><strong>Input:</strong> root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22
+        <strong>Output:</strong>  <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+        -> true
+        <strong>Explanation:</strong> The root-to-leaf path with the target sum is shown.
+        </pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2021/01/18/pathsum2.jpg"
+      />
+      <pre><strong>Input:</strong> root = [1,2,3], targetSum = 5
+        <strong>Output:</strong>  <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+        -> false
+        <strong>Explanation:</strong> There are two root-to-leaf paths in the tree:
+        (1 --&gt; 2): The sum is 3.
+        (1 --&gt; 3): The sum is 4.
+        There is no root-to-leaf path with sum = 5.
+        </pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> root = [], targetSum = 0
+        <strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+        -> false
+        <strong>Explanation:</strong> Since the tree is empty, there are no root-to-leaf paths.
+        </pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          The number of nodes in the tree is in the range
+          <code>[0, 5000]</code>.
+        </li>
+        <li><code>-1000 &lt;= Node.val &lt;= 1000</code></li>
+        <li><code>-1000 &lt;= targetSum &lt;= 1000</code></li>
+      </ul>
+    </div>
+  </body>
+</html>

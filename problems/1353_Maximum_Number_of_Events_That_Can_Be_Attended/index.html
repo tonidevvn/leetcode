@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 1353. Maximum Number of Events That Can Be Attended</title>
+    <script>
+      /**
+       * @param {number[][]} events
+       * @return {number}
+       */
+      var maxEvents = function (events) {
+        events.sort((a, b) => a[0] - b[0]);
+        let minHeap = [];
+        let res = 0, i = 0, n = events.length;
+        let day = 0;
+
+        while (i < n || minHeap.length > 0) {
+          if (minHeap.length === 0) {
+            day = events[i][0];
+          }
+          while (i < n && events[i][0] === day) {
+            // Insert event's end day into minHeap
+            let end = events[i][1];
+            let j = minHeap.length;
+            while (j > 0 && minHeap[j - 1] > end) {
+              minHeap[j] = minHeap[j - 1];
+              j--;
+            }
+            minHeap[j] = end;
+            i++;
+          }
+          // Remove expired events
+          while (minHeap.length > 0 && minHeap[0] < day) {
+            minHeap.shift();
+          }
+          if (minHeap.length > 0) {
+            minHeap.shift();
+            res++;
+            day++;
+          }
+        }
+        return res;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = maxEvents([
+          [1, 2],
+          [2, 3],
+          [3, 4],
+        ]);
+
+        // Example 2
+        document.getElementById("ex2").innerText = maxEvents([
+          [1, 2],
+          [2, 3],
+          [3, 4],
+          [1, 2],
+        ]);
+
+        // Example 3
+        document.getElementById("ex3").innerText = maxEvents([
+          [1, 5],
+          [1, 5],
+          [1, 5],
+          [2, 3],
+          [2, 3],
+        ]);
+
+        // Example 4
+        document.getElementById("ex4").innerText = maxEvents([
+          [1, 4],
+          [4, 4],
+          [2, 2],
+          [3, 4],
+          [1, 1],
+        ]);
+
+        // Example 5
+        document.getElementById("ex5").innerText = maxEvents([[27,27],[8,10],[9,11],[20,21],[25,29],[17,20],[12,12],[12,12],[10,14],[7,7],[6,10],[7,7],[4,8],[30,31],[23,25],[4,6],[17,17],[13,14],[6,9],[13,14]]);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 1353. Maximum Number of Events That Can Be Attended</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        You are given an array of <code>events</code> where
+        <code>events[i] = [startDay<sub>i</sub>, endDay<sub>i</sub>]</code>.
+        Every event <code>i</code> starts at <code>startDay<sub>i</sub></code
+        ><sub> </sub>and ends at <code>endDay<sub>i</sub></code
+        >.
+      </p>
+
+      <p>
+        You can attend an event <code>i</code> at any day <code>d</code> where
+        <code>startTime<sub>i</sub> &lt;= d &lt;= endTime<sub>i</sub></code
+        >. You can only attend one event at any time <code>d</code>.
+      </p>
+
+      <p>Return <em>the maximum number of events you can attend</em>.</p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2020/02/05/e1.png"
+        style="width: 400px; height: 267px"
+      />
+      <pre><strong>Input:</strong> events = [[1,2],[2,3],[3,4]]
+      <strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected -> 3
+      <strong>Explanation:</strong> You can attend all the three events.
+      One way to attend them all is as shown.
+      Attend the first event on day 1.
+      Attend the second event on day 2.
+      Attend the third event on day 3.
+      </pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> events= [[1,2],[2,3],[3,4],[1,2]]
+      <strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected -> 4
+      </pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> events= [[1,5],[1,5],[1,5],[2,3],[2,3]]
+      <strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected -> 5
+      </pre>
+
+      <p><strong class="example">Example 4:</strong></p>
+
+      <pre><strong>Input:</strong> events= [[1,4],[4,4],[2,2],[3,4],[1,1]]
+      <strong>Output:</strong> <span id="ex4" style="color: red; font-size: large"></span> ; Expected -> 4
+      </pre>
+
+      <p><strong class="example">Example 5:</strong></p>
+
+      <pre><strong>Input:</strong> events= [[27,27],[8,10],[9,11],[20,21],[25,29],[17,20],[12,12],[12,12],[10,14],[7,7],[6,10],[7,7],[4,8],[30,31],[23,25],[4,6],[17,17],[13,14],[6,9],[13,14]]
+      <strong>Output:</strong> <span id="ex5" style="color: red; font-size: large"></span> ; Expected -> 18
+      </pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= events.length &lt;= 10<sup>5</sup></code>
+        </li>
+        <li><code>events[i].length == 2</code></li>
+        <li>
+          <code
+            >1 &lt;= startDay<sub>i</sub> &lt;= endDay<sub>i</sub> &lt;= 10<sup
+              >5</sup
+            ></code
+          >
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
