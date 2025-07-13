@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 67. Add Binary</title>
+    <script>
+      /**
+       * @param {string} a
+       * @param {string} b
+       * @return {string}
+       */
+      var addBinary = function (a, b) {
+        let maxLen = Math.max(a.length, b.length) + 1;
+        a = "0".repeat(maxLen - a.length) + a;
+        b = "0".repeat(maxLen - b.length) + b;
+        let answer = Array(maxLen);
+        let temp = 0;
+        for (let i = maxLen - 1; i >= 0; i--) {
+          if (a[i] == b[i]) {
+            answer.unshift(temp);
+            if (a[i] == 1) temp = 1;
+            else temp = 0;
+          } else {
+            if (temp == 1) answer.unshift(0);
+            else answer.unshift(1);
+          }
+        }
+        for (let i = 0; i < maxLen - 1; i++) {
+          if (answer[i] == 0) answer[i] = -1;
+          else break;
+        }
+
+        return answer.filter((v) => v != -1).join("");
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = addBinary(
+          (a = "11"),
+          (b = "1")
+        );
+        // Example 2
+        document.getElementById("ex2").innerText = addBinary(
+          (a = "1010"),
+          (b = "1011")
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 67. Add Binary</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given two binary strings <code>a</code> and <code>b</code>, return
+        <em>their sum as a binary string</em>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <pre><strong>Input:</strong> a = "11", b = "1"
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large;"></span> -> Expected: "100"
+</pre>
+      <p><strong class="example">Example 2:</strong></p>
+      <pre><strong>Input:</strong> a = "1010", b = "1011"
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large;"></span> -> Expected: "10101"
+</pre>
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= a.length, b.length &lt;= 10<sup>4</sup></code>
+        </li>
+        <li>
+          <code>a</code> and <code>b</code> consist&nbsp;only of
+          <code>'0'</code> or <code>'1'</code> characters.
+        </li>
+        <li>
+          Each string does not contain leading zeros except for the zero itself.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

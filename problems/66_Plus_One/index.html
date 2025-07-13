@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 66. Plus One</title>
+    <script>
+      /**
+       * @param {number[]} digits
+       * @return {number[]}
+       */
+      var plusOne = function (digits) {
+        digits.unshift(0);
+        for (let i = digits.length - 1; i >= 0; i--) {
+          let num = digits[i];
+          if (num + 1 == 10) {
+            digits[i] = 0;
+          } else {
+            digits[i] = num + 1;
+            break;
+          }
+        }
+        if (digits[0] === 0) digits.shift();
+        return digits;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = plusOne([1, 2, 3]);
+        // Example 2
+        document.getElementById("ex2").innerText = plusOne([4, 3, 2, 1]);
+        // Example 3
+        document.getElementById("ex3").innerText = plusOne([9]);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 66. Plus One</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        You are given a <strong>large integer</strong> represented as an integer
+        array <code>digits</code>, where each <code>digits[i]</code> is the
+        <code>i<sup>th</sup></code> digit of the integer. The digits are ordered
+        from most significant to least significant in left-to-right order. The
+        large integer does not contain any leading <code>0</code>'s.
+      </p>
+
+      <p>
+        Increment the large integer by one and return
+        <em>the resulting array of digits</em>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> digits = [1,2,3]
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large;"></span> -> Expected: [1,2,4]
+<strong>Explanation:</strong> The array represents the integer 123.
+Incrementing by one gives 123 + 1 = 124.
+Thus, the result should be [1,2,4].
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> digits = [4,3,2,1]
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large;"></span> -> Expected: [4,3,2,2]
+<strong>Explanation:</strong> The array represents the integer 4321.
+Incrementing by one gives 4321 + 1 = 4322.
+Thus, the result should be [4,3,2,2].
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> digits = [9]
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large;"></span> -> Expected: [1,0]
+<strong>Explanation:</strong> The array represents the integer 9.
+Incrementing by one gives 9 + 1 = 10.
+Thus, the result should be [1,0].
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= digits.length &lt;= 100</code></li>
+        <li><code>0 &lt;= digits[i] &lt;= 9</code></li>
+        <li>
+          <code>digits</code> does not contain any leading <code>0</code>'s.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
