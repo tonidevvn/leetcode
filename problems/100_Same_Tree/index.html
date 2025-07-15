@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 100. Same Tree</title>
+    <script>
+      /**
+       * Definition for a binary tree node.
+       */
+      function TreeNode(val, left, right) {
+        this.val = val === undefined ? 0 : val;
+        this.left = left === undefined ? null : left;
+        this.right = right === undefined ? null : right;
+      }
+      /**
+       * @param {TreeNode} p
+       * @param {TreeNode} q
+       * @return {boolean}
+       */
+      var isSameTree = function (p, q) {
+        const treeCompare = (node1, node2) => {
+          if (node1 == null && node2 == null) return true;
+          if (node1 != null && node2 != null && node1.val === node2.val) {
+            let leftCheck = treeCompare(node1.left, node2.left);
+            console.log("🚀 ~ treeCompare ~ node1.left:", node1.left);
+            console.log("🚀 ~ treeCompare ~ node2.left:", node2.left);
+            console.log("🚀 ~ treeCompare ~ leftCheck:", leftCheck);
+            let rightCheck = false;
+            if (leftCheck) {
+              rightCheck = treeCompare(node1.right, node2.right);
+            }
+            return rightCheck;
+          } else return false;
+        };
+
+        return treeCompare(p, q);
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        let p = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+        let q = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+        let answer = isSameTree(p, q);
+        document.getElementById("ex1").innerText = answer;
+        // Example 2
+        p = new TreeNode(1, new TreeNode(2));
+        q = new TreeNode(1, null, new TreeNode(2));
+        answer = isSameTree(p, q);
+        document.getElementById("ex2").innerText = answer;
+        // Example 3
+        p = new TreeNode(1, new TreeNode(2), new TreeNode(1));
+        q = new TreeNode(1, new TreeNode(1), new TreeNode(2));
+        answer = isSameTree(p, q);
+        document.getElementById("ex3").innerText = answer;
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 100. Same Tree</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given the roots of two binary trees <code>p</code> and <code>q</code>,
+        write a function to check if they are the same or not.
+      </p>
+
+      <p>
+        Two binary trees are considered the same if they are structurally
+        identical, and the nodes have the same value.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2020/12/20/ex1.jpg"
+        style="width: 622px; height: 182px"
+      />
+      <pre><strong>Input:</strong> p = [1,2,3], q = [1,2,3]
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> true
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2020/12/20/ex2.jpg"
+        style="width: 382px; height: 182px"
+      />
+      <pre><strong>Input:</strong> p = [1,2], q = [1,null,2]
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> false
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2020/12/20/ex3.jpg"
+        style="width: 622px; height: 182px"
+      />
+      <pre><strong>Input:</strong> p = [1,2,1], q = [1,1,2]
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> false
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          The number of nodes in both trees is in the range
+          <code>[0, 100]</code>.
+        </li>
+        <li>
+          <code>-10<sup>4</sup> &lt;= Node.val &lt;= 10<sup>4</sup></code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

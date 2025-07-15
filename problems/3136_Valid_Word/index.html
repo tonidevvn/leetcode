@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 3136. Valid Word</title>
+    <script>
+      /**
+       * @param {string} word
+       * @return {boolean}
+       */
+      var isValid = function (word) {
+        let vowels = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"];
+        let numbers = Array(10)
+          .fill(0)
+          .map((_, index) => index.toString());
+        let letters = Array(26)
+          .fill("a")
+          .map((v, index) => String.fromCharCode(v.charCodeAt(0) + index));
+        let upperLetters = Array(26)
+          .fill("A")
+          .map((v, index) => String.fromCharCode(v.charCodeAt(0) + index));
+        let consonants = [...letters, ...upperLetters].filter(
+          (v) => !vowels.includes(v)
+        );
+        let hasVowel = false;
+        let hasConsonant = false;
+        if (word.length < 3) return false;
+        for (let i = 0; i < word.length; i++) {
+
+          if (
+            !numbers.includes(word[i]) &&
+            !letters.includes(word[i]) &&
+            !upperLetters.includes(word[i])
+          ) {
+            return false;
+          }
+          if (!hasVowel && vowels.includes(word[i])) hasVowel = true;
+          if (!hasConsonant && consonants.includes(word[i]))
+            hasConsonant = true;
+        }
+        return hasVowel && hasConsonant;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = isValid("234Adas");
+
+        // Example 2
+        document.getElementById("ex2").innerText = isValid("b3");
+
+        // Example 3
+        document.getElementById("ex3").innerText = isValid("a3$e");
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 3136. Valid Word</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>A word is considered <strong>valid</strong> if:</p>
+
+      <ul>
+        <li>It contains a <strong>minimum</strong> of 3 characters.</li>
+        <li>
+          It contains only digits (0-9), and English letters (uppercase and
+          lowercase).
+        </li>
+        <li>
+          It includes <strong>at least</strong> one <strong>vowel</strong>.
+        </li>
+        <li>
+          It includes <strong>at least</strong> one <strong>consonant</strong>.
+        </li>
+      </ul>
+
+      <p>You are given a string <code>word</code>.</p>
+
+      <p>
+        Return <code>true</code> if <code>word</code> is valid, otherwise,
+        return <code>false</code>.
+      </p>
+
+      <p><strong>Notes:</strong></p>
+
+      <ul>
+        <li>
+          <code>'a'</code>, <code>'e'</code>, <code>'i'</code>,
+          <code>'o'</code>, <code>'u'</code>, and their uppercases are
+          <strong>vowels</strong>.
+        </li>
+        <li>
+          A <strong>consonant</strong> is an English letter that is not a vowel.
+        </li>
+      </ul>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">word = "234Adas"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> true
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>This word satisfies the conditions.</p>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong> <span class="example-io">word = "b3"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> false
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          The length of this word is fewer than 3, and does not have a vowel.
+        </p>
+      </div>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong> <span class="example-io">word = "a3$e"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> false
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          This word contains a <code>'$'</code> character and does not have a
+          consonant.
+        </p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= word.length &lt;= 20</code></li>
+        <li>
+          <code>word</code> consists of English uppercase and lowercase letters,
+          digits, <code>'@'</code>, <code>'#'</code>, and <code>'$'</code>.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
