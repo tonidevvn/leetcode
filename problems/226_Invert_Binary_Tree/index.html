@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 226. Invert Binary Tree</title>
+    <script>
+      /**
+       * Definition for a binary tree node.
+       */
+      function TreeNode(val, left, right) {
+        this.val = val === undefined ? 0 : val;
+        this.left = left === undefined ? null : left;
+        this.right = right === undefined ? null : right;
+      }
+      /**
+       * @param {TreeNode} root
+       * @return {TreeNode}
+       */
+      var invertTree = function (root) {
+        if (root == null) return null;
+        let leftNode = invertTree(root.left);
+        let rightNode = invertTree(root.right);
+        root.left = rightNode;
+        root.right = leftNode;
+        console.log("🚀 ~ invertTree ~ root:", root)
+        return root;
+      };
+
+      /**
+       * @param {TreeNode} root
+       * @param {number} level
+       * @param {number[]} res
+       */
+      var levelOrderRec = (root, level, res) => {
+        // Base case: If node is null, return
+        if (root === null) return;
+
+        // Add a new level to the result if needed
+        if (res.length <= level) res.push([]);
+
+        // Add current node's data to its corresponding level
+        res[level].push(root.val);
+
+        // Recur for left and right children
+        levelOrderRec(root.left, level + 1, res);
+        levelOrderRec(root.right, level + 1, res);
+      };
+
+      /**
+       * Function to perform level order traversal
+       * @param {TreeNode} root
+       * @return {number[]}
+       */
+      function levelOrder(root) {
+        // Stores the result level by level
+        const res = [];
+
+        levelOrderRec(root, 0, res);
+        console.log("🚀 ~ levelOrder ~ res:", res)
+        return res;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        let root = new TreeNode(
+          4,
+          new TreeNode(2, new TreeNode(1), new TreeNode(3)),
+          new TreeNode(7, new TreeNode(6), new TreeNode(9))
+        );
+        let answer = invertTree(root);
+        document.getElementById("ex1").innerText = levelOrder(answer);
+        // Example 2
+        root = new TreeNode(2, new TreeNode(1), new TreeNode(3));
+        answer = invertTree(root);
+        document.getElementById("ex2").innerText = levelOrder(answer);
+        // Example 3
+        root = null;
+        answer = invertTree(root);
+        document.getElementById("ex3").innerText = levelOrder(answer);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 226. Invert Binary Tree</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given the <code>root</code> of a binary tree, invert the tree, and
+        return <em>its root</em>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2021/03/14/invert1-tree.jpg"
+        style="width: 500px; height: 165px"
+      />
+      <pre><strong>Input:</strong> root = [4,2,7,1,3,6,9]
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> [4,7,2,9,6,3,1]
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2021/03/14/invert2-tree.jpg"
+        style="width: 500px; height: 120px"
+      />
+      <pre><strong>Input:</strong> root = [2,1,3]
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> [2,3,1]
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> root = []
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> []
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          The number of nodes in the tree is in the range <code>[0, 100]</code>.
+        </li>
+        <li><code>-100 &lt;= Node.val &lt;= 100</code></li>
+      </ul>
+    </div>
+  </body>
+</html>

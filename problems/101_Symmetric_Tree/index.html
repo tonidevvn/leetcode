@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 101. Symmetric Tree</title>
+    <script>
+      /**
+       * Definition for a binary tree node.
+       */
+      function TreeNode(val, left, right) {
+        this.val = val === undefined ? 0 : val;
+        this.left = left === undefined ? null : left;
+        this.right = right === undefined ? null : right;
+      }
+      /**
+       * @param {TreeNode} root
+       * @return {boolean}
+       */
+      var isSymmetric = function (root) {
+        if (root == null || (root.left == null && root.right == null))
+          return true;
+        const nums = [];
+        treeCheck(root, 0, nums);
+        if (
+          nums[nums.length - 1].filter((v) => v != Number.POSITIVE_INFINITY).length == 0
+        )
+          nums[nums.length - 1].length = 0;
+        for (let i = 1; i < nums.length; i++) {
+          if (nums[i].length % 2 == 1) return false;
+          for (let j = 0; j < nums[i].length / 2; j++) {
+            if (nums[i][j] != nums[i][nums[i].length - 1 - j]) return false;
+          }
+        }
+        return true;
+      };
+
+      /**
+       * @param {TreeNode} root
+       */
+      var treeCheck = function (root, level, nums) {
+        // Base case: If node is null, return
+        if (root === null) {
+          if (nums.length <= level) nums.push([]);
+          nums[level].push(Number.POSITIVE_INFINITY);
+          return;
+        }
+
+        // Add a new level to the result if needed
+        if (nums.length <= level) nums.push([]);
+
+        // Add current node's data to its corresponding level
+        nums[level].push(root.val);
+
+        // Recur for left and right children
+        treeCheck(root.left, level + 1, nums);
+        treeCheck(root.right, level + 1, nums);
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        let root = new TreeNode(
+          1,
+          new TreeNode(2, new TreeNode(3), new TreeNode(4)),
+          new TreeNode(2, new TreeNode(4), new TreeNode(3))
+        );
+        let answer = isSymmetric(root);
+        document.getElementById("ex1").innerText = answer;
+        // Example 2
+        root = new TreeNode(
+          1,
+          new TreeNode(2, null, new TreeNode(3)),
+          new TreeNode(2, null, new TreeNode(3))
+        );
+        answer = isSymmetric(root);
+        document.getElementById("ex2").innerText = answer;
+        // Example 3
+        root = new TreeNode(
+          2,
+          new TreeNode(
+            3,
+            new TreeNode(4),
+            new TreeNode(5, new TreeNode(8), new TreeNode(9))
+          ),
+          new TreeNode(
+            3,
+            new TreeNode(5),
+            new TreeNode(4, new TreeNode(9), new TreeNode(8))
+          )
+        );
+        answer = isSymmetric(root);
+        document.getElementById("ex3").innerText = answer;
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 101. Symmetric Tree</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given the <code>root</code> of a binary tree,
+        <em>check whether it is a mirror of itself</em> (i.e., symmetric around
+        its center).
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2021/02/19/symtree1.jpg"
+        style="width: 354px; height: 291px"
+      />
+      <pre><strong>Input:</strong> root = [1,2,2,3,4,4,3]
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> true
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2021/02/19/symtree2.jpg"
+        style="width: 308px; height: 258px"
+      />
+      <pre><strong>Input:</strong> root = [1,2,2,null,3,null,3]
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> false
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+      <pre><strong>Input:</strong> root = [2,3,3,4,5,5,4,null,null,8,9,null,null,9,8]
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> false
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          The number of nodes in the tree is in the range
+          <code>[1, 1000]</code>.
+        </li>
+        <li><code>-100 &lt;= Node.val &lt;= 100</code></li>
+      </ul>
+
+      <p>&nbsp;</p>
+      <strong>Follow up:</strong> Could you solve it both recursively and
+      iteratively?
+    </div>
+  </body>
+</html>

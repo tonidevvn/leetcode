@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 17. Letter Combinations of a Phone Number</title>
+    <script>
+      /**
+       * @param {string} digits
+       * @return {string[]}
+       */
+      var letterCombinations = function (digits) {
+        let digitsArray = ["2", "3", "4", "5", "6", "7", "8", "9"];
+        let lettersMap = Array(8);
+        let zindex = 0;
+        for (let i = 0; i < lettersMap.length; i++) {
+          let size = 3;
+          if (i == 5 || i == 7) size = 4;
+          lettersMap[i] = Array(size);
+          for (let j = 0; j < size; j++) {
+            lettersMap[i][j] = String.fromCharCode(
+              "a".charCodeAt(0) + zindex++
+            );
+          }
+        }
+        /**
+         * @param {string[]} inputs
+         * @param {string[]} ans
+         * @param {number} target
+         * @return void
+         */
+        const combineinputs = (inputs, ans) => {
+          if (inputs == null || inputs.length == 0) {
+            return;
+          }
+          let output = lettersMap[digitsArray.indexOf(inputs.shift())];
+          console.log("🚀 ~ combineinputs ~ output:", output);
+          if (ans.length == 0) {
+            ans.push(...output);
+          } else {
+            let target = ans[ans.length - 1].length + 1;
+            let temp = [...ans]
+            ans.length = 0; // clean old ans array
+            for (let i = 0; i < temp.length; i++) {
+              for (let j = 0; j < output.length; j++) {
+                ans.push([...temp[i], output[j]].join(""));
+              }
+            }
+            console.log("🚀 ~ combineinputs ~ target:", target)
+          }
+          console.log("🚀 ~ combineinputs ~ ans:", [...ans]);
+          console.log("🚀 ~ combineinputs ~ inputs:", [...inputs]);
+          if (inputs.length > 0) combineinputs(inputs, ans);
+        };
+
+        let ans = [];
+        let entered_digits = digits.split("");
+        let count = 1;
+        combineinputs(entered_digits, ans, count);
+        console.log("🚀 ~ letterCombinations ~ ans:", [...ans]);
+        return [...ans];
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = letterCombinations("23");
+
+        // Example 2
+        document.getElementById("ex2").innerText = letterCombinations("");
+
+        // Example 3
+        document.getElementById("ex3").innerText = letterCombinations("2");
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 17. Letter Combinations of a Phone Number</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a string containing digits from <code>2-9</code> inclusive, return
+        all possible letter combinations that the number could represent. Return
+        the answer in <strong>any order</strong>.
+      </p>
+
+      <p>
+        A mapping of digits to letters (just like on the telephone buttons) is
+        given below. Note that 1 does not map to any letters.
+      </p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2022/03/15/1200px-telephone-keypad2svg.png"
+        style="width: 300px; height: 243px"
+      />
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> digits = "23"
+<strong>Output:</strong>  <span id="ex1" style="color: red; font-size: large;"></span> ; Expected -> ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> digits = ""
+<strong>Output:</strong>  <span id="ex2" style="color: red; font-size: large;"></span> ; Expected -> []
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> digits = "2"
+<strong>Output:</strong>  <span id="ex3" style="color: red; font-size: large;"></span> ; Expected -> ["a","b","c"]
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>0 &lt;= digits.length &lt;= 4</code></li>
+        <li>
+          <code>digits[i]</code> is a digit in the range
+          <code>['2', '9']</code>.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

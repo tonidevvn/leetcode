@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 2843. Count Symmetric Integers</title>
+    <script>
+      /**
+       * @param {number} low
+       * @param {number} high
+       * @return {number}
+       */
+      var countSymmetricIntegers = function (low, high) {
+        let ans = 0;
+        for (let i = low; i <= high; i++) {
+          let len = String(i).length;
+          if (len % 2 == 0 && len > 0) {
+            let sumleft = String(i)
+              .slice(0, String(i).length / 2)
+              .split("")
+              .reduce((sum, cur) => Number(sum) + Number(cur), 0);
+            let sumright = String(i)
+              .slice(String(i).length / 2)
+              .split("")
+              .reduce((sum, cur) => Number(sum) + Number(cur), 0);
+            if (sumleft == sumright) ans++;
+          } else if (len % 2 == 1) {
+            i = Number("9".repeat(len));
+          }
+        }
+        return ans;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = countSymmetricIntegers(
+          (low = 1),
+          (high = 100)
+        );
+        // Example 2
+        document.getElementById("ex2").innerText = countSymmetricIntegers(
+          (low = 1200),
+          (high = 1230)
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 2843. Count Symmetric Integers</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        You are given two positive integers <code>low</code> and
+        <code>high</code>.
+      </p>
+
+      <p>
+        An integer <code>x</code> consisting of <code>2 * n</code> digits is
+        <strong>symmetric</strong> if the sum of the first <code>n</code> digits
+        of <code>x</code> is equal to the sum of the last <code>n</code> digits
+        of <code>x</code>. Numbers with an odd number of digits are never
+        symmetric.
+      </p>
+
+      <p>
+        Return
+        <em>the <strong>number of symmetric</strong> integers in the range</em>
+        <code>[low, high]</code>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> low = 1, high = 100
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large;"></span>; Expected ->  9
+<strong>Explanation:</strong> There are 9 symmetric integers between 1 and 100: 11, 22, 33, 44, 55, 66, 77, 88, and 99.
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> low = 1200, high = 1230
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large;"></span>; Expected ->  4
+<strong>Explanation:</strong> There are 4 symmetric integers between 1200 and 1230: 1203, 1212, 1221, and 1230.
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= low &lt;= high &lt;= 10<sup>4</sup></code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
