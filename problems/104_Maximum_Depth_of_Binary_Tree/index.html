@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 104. Maximum Depth of Binary Tree</title>
+    <script>
+      /**
+       * Definition for a binary tree node.
+       */
+      function TreeNode(val, left, right) {
+        this.val = val === undefined ? 0 : val;
+        this.left = left === undefined ? null : left;
+        this.right = right === undefined ? null : right;
+      }
+      /**
+       * @param {TreeNode} root
+       * @return {number}
+       */
+      var maxDepth = function (root) {
+        /**
+         * @param {TreeNode} node
+         * @param {number} lv
+         * @return {number}
+         */
+        const depthCheck = (node, lv) => {
+          if (node != null) {
+            lv++;
+            let leftLv = depthCheck(node.left, lv);
+            let rightLv = depthCheck(node.right, lv);
+            return Math.max(leftLv, rightLv);
+          }
+          return lv;
+        };
+        return depthCheck(root, 0);
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        let root = new TreeNode(
+          3,
+          new TreeNode(9),
+          new TreeNode(20, new TreeNode(15), new TreeNode(7))
+        );
+        let answer = maxDepth(root);
+        document.getElementById("ex1").innerText = answer;
+        // Example 2
+        root = new TreeNode(1, null, new TreeNode(2));
+        answer = maxDepth(root);
+        document.getElementById("ex2").innerText = answer;
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 104. Maximum Depth of Binary Tree</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given the <code>root</code> of a binary tree, return
+        <em>its maximum depth</em>.
+      </p>
+
+      <p>
+        A binary tree's <strong>maximum depth</strong>&nbsp;is the number of
+        nodes along the longest path from the root node down to the farthest
+        leaf node.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2020/11/26/tmp-tree.jpg"
+        style="width: 400px; height: 277px"
+      />
+      <pre><strong>Input:</strong> root = [3,9,20,null,null,15,7]
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> 3
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> root = [1,null,2]
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> 2
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          The number of nodes in the tree is in the range
+          <code>[0, 10<sup>4</sup>]</code>.
+        </li>
+        <li><code>-100 &lt;= Node.val &lt;= 100</code></li>
+      </ul>
+    </div>
+  </body>
+</html>

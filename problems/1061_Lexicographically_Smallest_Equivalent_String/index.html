@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      LeetCode 1061. Lexicographically Smallest Equivalent String String
+      LeetCode 1061. Lexicographically Smallest Equivalent String
     </title>
     <script>
       /**
@@ -20,13 +20,9 @@
         let finds = [];
         finds.push(c);
         while (finds.length > 0) {
-          // console.log("🚀 ~ linkedChars ~ finds before:", finds)
           // remove finds in s1 & s2
           let find = finds.shift();
-          // console.log("🚀 ~ linkedChars ~ find:", find)
           let indexS1 = s1_arr.indexOf(find);
-          // console.log("🚀 ~ linkedChars ~ s1_arr:", s1_arr)
-          // console.log("🚀 ~ linkedChars ~ indexS1:", indexS1)
           if (indexS1 >= 0) {
             linkedStr.push(s1_arr[indexS1]);
             while (indexS1 >= 0) {
@@ -37,8 +33,6 @@
             }
           }
           let indexS2 = s2_arr.indexOf(find);
-          // console.log("🚀 ~ linkedChars ~ s2_arr:", s2_arr)
-          // console.log("🚀 ~ linkedChars ~ indexS2:", indexS2)
 
           if (indexS2 >= 0) {
             linkedStr.push(s2_arr[indexS2]);
@@ -49,7 +43,6 @@
               indexS2 = s2_arr.indexOf(find, indexS2 + 1);
             }
           }
-          // console.log("🚀 ~ linkedChars ~ finds after:", finds)
         }
         return linkedStr.sort()[0];
       };
