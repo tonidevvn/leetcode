@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 1957. Delete Characters to Make Fancy String</title>
+    <script>
+      /**
+       * @param {string} s
+       * @return {string}
+       */
+      var makeFancyString = function (s) {
+        if (s.length == 0) return "";
+        let ans = [s[0]];
+        let count = 1;
+        for (let i = 1; i < s.length; i++) {
+          if (s[i] != ans[ans.length - 1]) count = 1;
+          else count++;
+          if (count < 3) ans.push(s[i]);
+        }
+        return ans.join("");
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = makeFancyString("leeetcode");
+        // Example 2
+        document.getElementById("ex2").innerText = makeFancyString("aaabaaaa");
+        // Example 3
+        document.getElementById("ex3").innerText = makeFancyString("aab");
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 1957. Delete Characters to Make Fancy String</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        A <strong>fancy string</strong> is a string where no
+        <strong>three</strong> <strong>consecutive</strong> characters are
+        equal.
+      </p>
+
+      <p>
+        Given a string <code>s</code>, delete the
+        <strong>minimum</strong> possible number of characters from
+        <code>s</code> to make it <strong>fancy</strong>.
+      </p>
+
+      <p>
+        Return <em>the final string after the deletion</em>. It can be shown
+        that the answer will always be <strong>unique</strong>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> s = "le<u>e</u>etcode"
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected -> "leetcode"
+<strong>Explanation:</strong>
+Remove an 'e' from the first group of 'e's to create "leetcode".
+No three consecutive characters are equal, so return "leetcode".
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> s = "<u>a</u>aab<u>aa</u>aa"
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected -> "aabaa"
+<strong>Explanation:</strong>
+Remove an 'a' from the first group of 'a's to create "aabaaaa".
+Remove two 'a's from the second group of 'a's to create "aabaa".
+No three consecutive characters are equal, so return "aabaa".
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> s = "aab"
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected -> "aab"
+<strong>Explanation:</strong> No three consecutive characters are equal, so return "aab".
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= s.length &lt;= 10<sup>5</sup></code>
+        </li>
+        <li><code>s</code> consists only of lowercase English letters.</li>
+      </ul>
+    </div>
+  </body>
+</html>

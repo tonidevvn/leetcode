@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 242. Valid Anagram</title>
+    <script>
+      /**
+       * @param {string} s
+       * @param {string} t
+       * @return {boolean}
+       */
+      var isAnagram = function (s, t) {
+        s = s.split("").sort().join();
+        t = t.split("").sort().join();
+        return s == t;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = isAnagram(
+          (s = "anagram"),
+          (t = "nagaram")
+        );
+        // Example 2
+        document.getElementById("ex2").innerText = isAnagram(
+          (s = "rat"),
+          (t = "car")
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 242. Valid Anagram</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given two strings <code>s</code> and <code>t</code>, return
+        <code>true</code> if <code>t</code> is an
+        <span
+          data-keyword="anagram"
+          class="cursor-pointer relative text-dark-blue-s text-sm"
+          ><button
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="radix-:rs:"
+            data-state="closed"
+            class=""
+          >
+            anagram
+          </button></span
+        >
+        of <code>s</code>, and <code>false</code> otherwise.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">s = "anagram", t = "nagaram"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> true
+        </p>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">s = "rat", t = "car"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> false
+        </p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= s.length, t.length &lt;= 5 * 10<sup>4</sup></code>
+        </li>
+        <li>
+          <code>s</code> and <code>t</code> consist of lowercase English
+          letters.
+        </li>
+      </ul>
+
+      <p>&nbsp;</p>
+      <p>
+        <strong>Follow up:</strong> What if the inputs contain Unicode
+        characters? How would you adapt your solution to such a case?
+      </p>
+    </div>
+  </body>
+</html>

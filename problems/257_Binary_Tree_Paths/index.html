@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 257. Binary Tree Paths</title>
+    <script>
+      /**
+       * Definition for a binary tree node.
+       */
+      function TreeNode(val, left, right) {
+        this.val = val === undefined ? 0 : val;
+        this.left = left === undefined ? null : left;
+        this.right = right === undefined ? null : right;
+      }
+      /**
+       * @param {TreeNode} root
+       * @return {string[]}
+       */
+      var binaryTreePaths = function (root) {
+        const getPaths = (node, leaftoRoot = [], paths = []) => {
+          if (node != null) {
+            leaftoRoot.push(node.val);
+            getPaths(node.left, [...leaftoRoot], paths);
+            getPaths(node.right, [...leaftoRoot], paths);
+            if (node.left == null && node.right == null) {
+              paths.push(
+                leaftoRoot
+                  .map((v, i, arr) => (i < arr.length - 1 ? `${v}->` : v))
+                  .join("")
+              );
+            }
+          }
+        };
+        let leaftoRoot = [];
+        let ans = [];
+        getPaths(root, leaftoRoot, ans);
+        return ans;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        let root1 = new TreeNode(
+          1,
+          new TreeNode(2, null, new TreeNode(5)),
+          new TreeNode(3)
+        );
+        document.getElementById("ex1").innerText = binaryTreePaths(root1);
+        // Example 2
+        let root2 = new TreeNode(1);
+        document.getElementById("ex2").innerText = binaryTreePaths(root2);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 257. Binary Tree Paths</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given the <code>root</code> of a binary tree, return
+        <em>all root-to-leaf paths in <strong>any order</strong></em
+        >.
+      </p>
+
+      <p>A <strong>leaf</strong> is a node with no children.</p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2021/03/12/paths-tree.jpg"
+        style="width: 207px; height: 293px"
+      />
+      <pre><strong>Input:</strong> root = [1,2,3,null,5]
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> ["1-&gt;2-&gt;5","1-&gt;3"]
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> root = [1]
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> ["1"]
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          The number of nodes in the tree is in the range <code>[1, 100]</code>.
+        </li>
+        <li><code>-100 &lt;= Node.val &lt;= 100</code></li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 110. Balanced Binary Tree</title>
+    <script>
+      /**
+       * Definition for a binary tree node.
+       */
+      function TreeNode(val, left, right) {
+        this.val = val === undefined ? 0 : val;
+        this.left = left === undefined ? null : left;
+        this.right = right === undefined ? null : right;
+      }
+
+      /**
+       * Definition for a binary tree node.
+       * function TreeNode(val, left, right) {
+       *     this.val = (val===undefined ? 0 : val)
+       *     this.left = (left===undefined ? null : left)
+       *     this.right = (right===undefined ? null : right)
+       * }
+       */
+      /**
+       * @param {TreeNode} root
+       * @return {boolean}
+       */
+      var isBalanced = function (root) {
+        const checkBalanced = (root, level, isBalanced) => {
+          if (isBalanced == false || root == null) return [level, isBalanced];
+          level++;
+          let leftlv = level, rightlv = level;
+          [leftlv, isBalanced] = checkBalanced(root.left, level, isBalanced);
+          if (!isBalanced) return [level, isBalanced];
+          [rightlv, isBalanced] = checkBalanced(root.right, level, isBalanced);
+          if (!isBalanced) return [level, isBalanced];
+          if (Math.abs(leftlv - rightlv) > 1) isBalanced = false;
+          level = Math.max(level, leftlv, rightlv);
+          return [level, isBalanced];
+        };
+        let maxH = 0,
+          ans = true;
+        [maxH, ans] = checkBalanced(root, maxH, ans);
+        return ans;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        let root1 = new TreeNode(
+          3,
+          new TreeNode(9),
+          new TreeNode(20, new TreeNode(15), new TreeNode(7))
+        );
+        document.getElementById("ex1").innerText = isBalanced(root1);
+        // Example 2
+        let root2 = new TreeNode(
+          1,
+          new TreeNode(
+            2,
+            new TreeNode(3, new TreeNode(4), new TreeNode(4)),
+            new TreeNode(3)
+          ),
+          new TreeNode(2)
+        );
+        document.getElementById("ex2").innerText = isBalanced(root2);
+        // Example 3
+        let root3 = null;
+        document.getElementById("ex3").innerText = isBalanced(root3);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 110. Balanced Binary Tree</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a binary tree, determine if it is
+        <span
+          data-keyword="height-balanced"
+          class="cursor-pointer relative text-dark-blue-s text-sm"
+          ><button
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="radix-:r1b:"
+            data-state="closed"
+            class=""
+          >
+            <strong>height-balanced</strong>
+          </button></span
+        >.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2020/10/06/balance_1.jpg"
+        style="width: 342px; height: 221px"
+      />
+      <pre><strong>Input:</strong> root = [3,9,20,null,null,15,7]
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+        -> true
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2020/10/06/balance_2.jpg"
+        style="width: 452px; height: 301px"
+      />
+      <pre><strong>Input:</strong> root = [1,2,2,3,3,null,null,4,4]
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+        -> false
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> root = []
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+        ->  true
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          The number of nodes in the tree is in the range
+          <code>[0, 5000]</code>.
+        </li>
+        <li>
+          <code>-10<sup>4</sup> &lt;= Node.val &lt;= 10<sup>4</sup></code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

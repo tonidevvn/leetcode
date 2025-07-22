@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 171. Excel Sheet Column Number</title>
+    <script>
+      /**
+       * @param {string} columnTitle
+       * @return {number}
+       */
+      var titleToNumber = function (columnTitle) {
+        let titleLen = columnTitle.length;
+        let ans = 0;
+        for (let i = 0; i < titleLen; i++) {
+          ans +=
+            26 ** (titleLen - i - 1) *
+            (columnTitle[i].toLowerCase().charCodeAt(0) - "a".charCodeAt(0) + 1);
+        }
+        return ans;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = titleToNumber("A");
+        // Example 2
+        document.getElementById("ex2").innerText = titleToNumber("AB");
+        // Example 3
+        document.getElementById("ex3").innerText = titleToNumber("ZY");
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 171. Excel Sheet Column Number</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a string <code>columnTitle</code> that represents the column title
+        as appears in an Excel sheet, return
+        <em>its corresponding column number</em>.
+      </p>
+
+      <p>For example:</p>
+
+      <pre>
+A -&gt; 1
+B -&gt; 2
+C -&gt; 3
+...
+Z -&gt; 26
+AA -&gt; 27
+AB -&gt; 28 
+...
+</pre
+      >
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> columnTitle = "A"
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+        -> 1
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> columnTitle = "AB"
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+        -> 28
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> columnTitle = "ZY"
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+        -> 701
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= columnTitle.length &lt;= 7</code></li>
+        <li>
+          <code>columnTitle</code> consists only of uppercase English letters.
+        </li>
+        <li>
+          <code>columnTitle</code> is in the range
+          <code>["A", "FXSHRXW"]</code>.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

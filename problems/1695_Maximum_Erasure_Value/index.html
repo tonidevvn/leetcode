@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 1695. Maximum Erasure Value</title>
+    <script>
+      /**
+       * @param {number[]} nums
+       * @return {number}
+       */
+      var maximumUniqueSubarray = function (nums) {
+        let ans = 0;
+        let seen = new Set();
+        let left = 0, currSum = 0;
+        for (let right = 0; right < nums.length; right++) {
+          while (seen.has(nums[right])) {
+            seen.delete(nums[left]);
+            currSum -= nums[left];
+            left++;
+          }
+          seen.add(nums[right]);
+          currSum += nums[right];
+          ans = Math.max(ans, currSum);
+        }
+        return ans;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = maximumUniqueSubarray([
+          4, 2, 4, 5, 6,
+        ]);
+
+        // Example 2
+        document.getElementById("ex2").innerText = maximumUniqueSubarray([
+          5, 2, 1, 2, 5, 2, 1, 2, 5,
+        ]);
+
+        // Example 3
+        document.getElementById("ex3").innerText = maximumUniqueSubarray([
+          10000, 1, 10000, 1, 1, 1, 1, 1, 1,
+        ]);
+
+        // Example 4
+        document.getElementById("ex4").innerText = maximumUniqueSubarray([
+          187, 470, 25, 436, 538, 809, 441, 167, 477, 110, 275, 133, 666, 345,
+          411, 459, 490, 266, 987, 965, 429, 166, 809, 340, 467, 318, 125, 165,
+          809, 610, 31, 585, 970, 306, 42, 189, 169, 743, 78, 810, 70, 382, 367,
+          490, 787, 670, 476, 278, 775, 673, 299, 19, 893, 817, 971, 458, 409,
+          886, 434,
+        ]);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 1695. Maximum Erasure Value</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        You are given an array of positive integers <code>nums</code> and want
+        to erase a subarray containing&nbsp;<strong>unique elements</strong>.
+        The <strong>score</strong> you get by erasing the subarray is equal to
+        the <strong>sum</strong> of its elements.
+      </p>
+
+      <p>
+        Return
+        <em
+          >the <strong>maximum score</strong> you can get by erasing
+          <strong>exactly one</strong> subarray.</em
+        >
+      </p>
+
+      <p>
+        An array <code>b</code> is called to be a
+        <span class="tex-font-style-it">subarray</span> of <code>a</code> if it
+        forms a contiguous subsequence of <code>a</code>, that is, if it is
+        equal to <code>a[l],a[l+1],...,a[r]</code> for some <code>(l,r)</code>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [4,2,4,5,6]
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large;"></span>; Expected -> 17
+<strong>Explanation:</strong> The optimal subarray here is [2,4,5,6].
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [5,2,1,2,5,2,1,2,5]
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large;"></span>; Expected -> 8
+<strong>Explanation:</strong> The optimal subarray here is [5,2,1] or [1,2,5].
+</pre>
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [10000,1,10000,1,1,1,1,1,1]
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large;"></span>; Expected -> 10001
+<strong>Explanation:</strong> The optimal subarray here is [10000,1] or [1,10000].
+</pre>
+
+      <p><strong class="example">Example 4:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [187,470,25,436,538,809,441,167,477,110,275,133,666,345,411,459,490,266,987,965,429,166,809,340,467,318,125,165,809,610,31,585,970,306,42,189,169,743,78,810,70,382,367,490,787,670,476,278,775,673,299,19,893,817,971,458,409,886,434]
+<strong>Output:</strong> <span id="ex4" style="color: red; font-size: large;"></span>; Expected -> 16911
+</pre>
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code>
+        </li>
+        <li>
+          <code>1 &lt;= nums[i] &lt;= 10<sup>4</sup></code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 125. Valid Palindrome</title>
+    <script>
+      /**
+       * @param {string} s
+       * @return {boolean}
+       */
+      var isPalindrome = function (s) {
+        s = s.toLowerCase();
+        let ans = [];
+        let abc = Array(26)
+          .fill("a")
+          .map((v, index) => String.fromCharCode(v.charCodeAt(0) + index));
+        let numbers = Array(10).fill('0').map((v, index) => String.fromCharCode(v.charCodeAt(0) + index));
+        for (let i = 0; i < s.length; i++) {
+          if (abc.includes(s[i]) || numbers.includes(s[i])) ans.push(s[i]);
+        }
+        let left = 0,
+          right = ans.length - 1;
+
+        while (left < right) {
+          if (ans[left++] != ans[right--]) {
+            return false;
+          }
+        }
+        return true;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = isPalindrome(
+          "A man, a plan, a canal: Panama"
+        );
+        // Example 2
+        document.getElementById("ex2").innerText = isPalindrome("race a car");
+        // Example 3
+        document.getElementById("ex3").innerText = isPalindrome("0P");
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 125. Valid Palindrome</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        A phrase is a <strong>palindrome</strong> if, after converting all
+        uppercase letters into lowercase letters and removing all
+        non-alphanumeric characters, it reads the same forward and backward.
+        Alphanumeric characters include letters and numbers.
+      </p>
+
+      <p>
+        Given a string <code>s</code>, return <code>true</code
+        ><em> if it is a <strong>palindrome</strong>, or </em><code>false</code
+        ><em> otherwise</em>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> s = "A man, a plan, a canal: Panama"
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+        -> true
+<strong>Explanation:</strong> "amanaplanacanalpanama" is a palindrome.
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> s = "race a car"
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+        -> false
+<strong>Explanation:</strong> "raceacar" is not a palindrome.
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> s = "0P"
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+        -> false
+<strong>Explanation:</strong> s is an empty string "" after removing non-alphanumeric characters.
+Since an empty string reads the same forward and backward, it is a palindrome.
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= s.length &lt;= 2 * 10<sup>5</sup></code>
+        </li>
+        <li><code>s</code> consists only of printable ASCII characters.</li>
+      </ul>
+    </div>
+  </body>
+</html>

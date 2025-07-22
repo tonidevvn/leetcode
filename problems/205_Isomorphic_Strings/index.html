@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 205. Isomorphic Strings</title>
+    <script>
+      /**
+       * @param {string} s
+       * @param {string} t
+       * @return {boolean}
+       */
+      var isIsomorphic = function (s, t) {
+        let mapStoT = {};
+        let mapTtoS = {};
+        for (var i = 0; i < s.length; i++) {
+          if (!mapStoT[s[i]] && !mapTtoS[t[i]]) {
+            mapStoT[s[i]] = t[i];
+            mapTtoS[t[i]] = s[i];
+          } else if (mapTtoS[t[i]] !== s[i]) {
+            return false;
+          }
+        }
+        return true;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = isIsomorphic(
+          (s = "egg"),
+          (t = "add")
+        );
+        // Example 2
+        document.getElementById("ex2").innerText = isIsomorphic(
+          (s = "foo"),
+          (t = "bar")
+        );
+        // Example 3
+        document.getElementById("ex3").innerText = isIsomorphic(
+          (s = "paper"),
+          (t = "title")
+        );
+        // Example 4
+        document.getElementById("ex4").innerText = isIsomorphic(
+          (s = "badc"),
+          (t = "baba")
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 205. Isomorphic Strings</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given two strings <code>s</code> and <code>t</code>,
+        <em>determine if they are isomorphic</em>.
+      </p>
+
+      <p>
+        Two strings <code>s</code> and <code>t</code> are isomorphic if the
+        characters in <code>s</code> can be replaced to get <code>t</code>.
+      </p>
+
+      <p>
+        All occurrences of a character must be replaced with another character
+        while preserving the order of characters. No two characters may map to
+        the same character, but a character may map to itself.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">s = "egg", t = "add"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> true
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          The strings <code>s</code> and <code>t</code> can be made identical
+          by:
+        </p>
+
+        <ul>
+          <li>Mapping <code>'e'</code> to <code>'a'</code>.</li>
+          <li>Mapping <code>'g'</code> to <code>'d'</code>.</li>
+        </ul>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">s = "foo", t = "bar"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> false
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          The strings <code>s</code> and <code>t</code> can not be made
+          identical as <code>'o'</code> needs to be mapped to both
+          <code>'a'</code> and <code>'r'</code>.
+        </p>
+      </div>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">s = "paper", t = "title"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> true
+        </p>
+      </div>
+
+      <p><strong class="example">Example 4:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">s = "badc", t = "baba"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex4" style="color: red; font-size: large"></span> ; Expected
+          -> false
+        </p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= s.length &lt;= 5 * 10<sup>4</sup></code>
+        </li>
+        <li><code>t.length == s.length</code></li>
+        <li>
+          <code>s</code> and <code>t</code> consist of any valid ascii
+          character.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

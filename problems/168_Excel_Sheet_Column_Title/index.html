@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 168. Excel Sheet Column Title</title>
+    <script>
+      /**
+       * @param {number} columnNumber
+       * @return {string}
+       */
+      var convertToTitle = function (columnNumber) {
+        let result = "";
+        while (columnNumber > 0) {
+          columnNumber--;
+          result = String.fromCharCode(65 + (columnNumber % 26)) + result;
+          columnNumber = Math.floor(columnNumber / 26);
+        }
+        return result;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = convertToTitle(1);
+        // Example 2
+        document.getElementById("ex2").innerText = convertToTitle(28);
+        // Example 3
+        document.getElementById("ex3").innerText = convertToTitle(701);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 168. Excel Sheet Column Title</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given an integer <code>columnNumber</code>, return
+        <em>its corresponding column title as it appears in an Excel sheet</em>.
+      </p>
+
+      <p>For example:</p>
+
+      <pre>
+A -&gt; 1
+B -&gt; 2
+C -&gt; 3
+...
+Z -&gt; 26
+AA -&gt; 27
+AB -&gt; 28 
+...
+</pre
+      >
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> columnNumber = 1
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+        -> "A"
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> columnNumber = 28
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+        -> "AB"
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> columnNumber = 701
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+        -> "ZY"
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= columnNumber &lt;= 2<sup>31</sup> - 1</code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
