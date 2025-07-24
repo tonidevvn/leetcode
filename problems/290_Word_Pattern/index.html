@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 290. Word Pattern</title>
+    <script>
+      /**
+       * @param {string} pattern
+       * @param {string} s
+       * @return {boolean}
+       */
+      var wordPattern = function (pattern, s) {
+        let patt = pattern.split("");
+        console.log("🚀 ~ wordPattern ~ patt:", patt)
+        let sl = s.split(" ");
+        console.log("🚀 ~ wordPattern ~ sl:", sl)
+        if (patt.length != sl.length) return false;
+        let pattToNums = [];
+        let sToNums = [];
+        let countp = 1,
+          counts = 1;
+        let pattMap = new Map();
+        let sMap = new Map();
+        for (let i = 0; i < patt.length; i++) {
+          if (!pattMap.get(patt[i])) pattMap.set(patt[i], countp++);
+          if (!sMap.get(sl[i])) sMap.set(sl[i], counts++);
+          pattToNums.push(pattMap.get(patt[i]));
+          sToNums.push(sMap.get(sl[i]));
+        }
+        console.log("🚀 ~ wordPattern ~ sToNums:", sToNums)
+        console.log("🚀 ~ wordPattern ~ pattToNums:", pattToNums)
+        return pattToNums.join("") == sToNums.join("");
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = wordPattern(
+          (pattern = "abba"),
+          (s = "dog cat cat dog")
+        );
+        // Example 2
+        document.getElementById("ex2").innerText = wordPattern(
+          (pattern = "abba"),
+          (s = "dog cat cat fish")
+        );
+        // Example 3
+        document.getElementById("ex3").innerText = wordPattern(
+          (pattern = "aaaa"),
+          (s = "dog cat cat dog")
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 290. Word Pattern</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a <code>pattern</code> and a string <code>s</code>, find if
+        <code>s</code>&nbsp;follows the same pattern.
+      </p>
+
+      <p>
+        Here <b>follow</b> means a full match, such that there is a bijection
+        between a letter in <code>pattern</code> and a <b>non-empty</b> word in
+        <code>s</code>. Specifically:
+      </p>
+
+      <ul>
+        <li>
+          Each letter in <code>pattern</code> maps to
+          <strong>exactly</strong> one unique word in <code>s</code>.
+        </li>
+        <li>
+          Each unique word in <code>s</code> maps to
+          <strong>exactly</strong> one letter in <code>pattern</code>.
+        </li>
+        <li>
+          No two letters map to the same word, and no two words map to the same
+          letter.
+        </li>
+      </ul>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io"
+            >pattern = "abba", s = "dog cat cat dog"</span
+          >
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> true
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>The bijection can be established as:</p>
+
+        <ul>
+          <li><code>'a'</code> maps to <code>"dog"</code>.</li>
+          <li><code>'b'</code> maps to <code>"cat"</code>.</li>
+        </ul>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io"
+            >pattern = "abba", s = "dog cat cat fish"</span
+          >
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> false
+        </p>
+      </div>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io"
+            >pattern = "aaaa", s = "dog cat cat dog"</span
+          >
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> false
+        </p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= pattern.length &lt;= 300</code></li>
+        <li><code>pattern</code> contains only lower-case English letters.</li>
+        <li><code>1 &lt;= s.length &lt;= 3000</code></li>
+        <li>
+          <code>s</code> contains only lowercase English letters and spaces
+          <code>' '</code>.
+        </li>
+        <li>
+          <code>s</code> <strong>does not contain</strong> any leading or
+          trailing spaces.
+        </li>
+        <li>
+          All the words in <code>s</code> are separated by a
+          <strong>single space</strong>.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 1717. Maximum Score From Removing Substrings</title>
+    <script>
+      /**
+       * @param {string} s
+       * @param {number} x
+       * @param {number} y
+       * @return {number}
+       */
+      var maximumGain = function (s, x, y) {
+        const ab = "ab";
+        const ba = "ba";
+        let highpatt = y < x ? ab : ba;
+        let lowpatt = highpatt == ab ? ba : ab;
+        let high = Math.max(x, y);
+        let low = Math.min(x, y);
+        let ans = 0;
+        let count = 0;
+
+        let highStack = [];
+        for (let i = 0; i < s.length; i++) {
+          highStack.push(s[i]);
+          let next = s[i];
+          let prev = i > 0 ? highStack[highStack.length - 2] : "";
+          if (next == highpatt[1] && prev == highpatt[0]) {
+            ans += high;
+            highStack.length -= 2;
+          }
+        }
+        let lowStack = []
+        for (let i = 0; i < highStack.length; i++) {
+          lowStack.push(highStack[i])
+          let next = highStack[i]
+          let prev = i > 0 ? lowStack[lowStack.length - 2] : "";
+          if (next == lowpatt[1] && prev == lowpatt[0]) {
+            ans += low;
+            lowStack.length -= 2;
+          }
+        }
+        return ans;
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = maximumGain(
+          (s = "cdbcbbaaabab"),
+          (x = 4),
+          (y = 5)
+        );
+
+        // Example 2
+        document.getElementById("ex2").innerText = maximumGain(
+          (s = "aabbaaxybbaabb"),
+          (x = 5),
+          (y = 4)
+        );
+
+        // Example 3
+        document.getElementById("ex3").innerText = maximumGain(
+          (s = "aabbcdebbdaa"),
+          (x = 4),
+          (y = 5)
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 1717. Maximum Score From Removing Substrings</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        You are given a string <code>s</code> and two integers
+        <code>x</code> and <code>y</code>. You can perform two types of
+        operations any number of times.
+      </p>
+
+      <ul>
+        <li>
+          Remove substring <code>"ab"</code> and gain <code>x</code> points.
+
+          <ul>
+            <li>
+              For example, when removing <code>"ab"</code> from
+              <code>"c<u>ab</u>xbae"</code> it becomes <code>"cxbae"</code>.
+            </li>
+          </ul>
+        </li>
+        <li>
+          Remove substring <code>"ba"</code> and gain <code>y</code> points.
+          <ul>
+            <li>
+              For example, when removing <code>"ba"</code> from
+              <code>"cabx<u>ba</u>e"</code> it becomes <code>"cabxe"</code>.
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <p>
+        Return
+        <em
+          >the maximum points you can gain after applying the above operations
+          on</em
+        >
+        <code>s</code>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> s = "cdbcbbaaabab", x = 4, y = 5
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large;"></span>; Expected -> 19
+<strong>Explanation:</strong>
+- Remove the "ba" underlined in "cdbcbbaaa<u>ba</u>b". Now, s = "cdbcbbaaab" and 5 points are added to the score.
+- Remove the "ab" underlined in "cdbcbbaa<u>ab</u>". Now, s = "cdbcbbaa" and 4 points are added to the score.
+- Remove the "ba" underlined in "cdbcb<u>ba</u>a". Now, s = "cdbcba" and 5 points are added to the score.
+- Remove the "ba" underlined in "cdbc<u>ba</u>". Now, s = "cdbc" and 5 points are added to the score.
+Total score = 5 + 4 + 5 + 5 = 19.</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> s = "aabbaaxybbaabb", x = 5, y = 4
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large;"></span>; Expected -> 20
+</pre>
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> s = "aabbcdebbdaa", x = 4, y = 5
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large;"></span>; Expected -> 8
+</pre>
+
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= s.length &lt;= 10<sup>5</sup></code>
+        </li>
+        <li>
+          <code>1 &lt;= x, y &lt;= 10<sup>4</sup></code>
+        </li>
+        <li><code>s</code> consists of lowercase English letters.</li>
+      </ul>
+    </div>
+  </body>
+</html>
