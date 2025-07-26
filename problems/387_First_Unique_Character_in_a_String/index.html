@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 387. First Unique Character in a String</title>
+    <script>
+      /**
+       * @param {string} s
+       * @return {number}
+       */
+      var firstUniqChar = function (s) {
+        let charCount = new Array(26).fill(0);
+        const aCode = "a".charCodeAt(0);
+        for (let i = 0; i < s.length; i++) {
+          charCount[s[i].charCodeAt(0) - aCode]++;
+        }
+        for (let i = 0; i < s.length; i++) {
+          if (charCount[s[i].charCodeAt(0) - aCode] == 1) return i;
+        }
+        return -1;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = firstUniqChar("leetcode");
+        // Example 2
+        document.getElementById("ex2").innerText =
+          firstUniqChar("loveleetcode");
+        // Example 3
+        document.getElementById("ex3").innerText = firstUniqChar("aabb");
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 387. First Unique Character in a String</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a string <code>s</code>, find the
+        <strong>first</strong> non-repeating character in it and return its
+        index. If it <strong>does not</strong> exist, return <code>-1</code>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong> <span class="example-io">s = "leetcode"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> 0
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <p>
+          The character <code>'l'</code> at index 0 is the first character that
+          does not occur at any other index.
+        </p>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">s = "loveleetcode"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> 2
+        </p>
+      </div>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong> <span class="example-io">s = "aabb"</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> -1
+        </p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= s.length &lt;= 10<sup>5</sup></code>
+        </li>
+        <li><code>s</code> consists of only lowercase English letters.</li>
+      </ul>
+    </div>
+  </body>
+</html>

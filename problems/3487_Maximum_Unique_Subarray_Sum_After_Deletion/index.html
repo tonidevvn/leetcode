@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 3487. Maximum Unique Subarray Sum After Deletion</title>
+    <script>
+      /**
+       * @param {number[]} nums
+       * @return {number}
+       */
+      var maxSum = function (nums) {
+        let ans = -1;
+        let subarr = [];
+        let removedNums = [];
+        let minNeg = -1*Infinity;
+        for (let i = 0; i < nums.length; i++) {
+          if (nums[i] < 0) minNeg = Math.max(minNeg, nums[i]);
+          else if (!removedNums.includes(nums[i])) removedNums.push(nums[i]);
+        }
+        if (removedNums.length == 0) return minNeg;
+        return removedNums.reduce((sum, v) => sum + v, 0);
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = maxSum([1, 2, 3, 4, 5]);
+
+        // Example 2
+        document.getElementById("ex2").innerText = maxSum([1, 1, 0, 1, 1]);
+
+        // Example 3
+        document.getElementById("ex3").innerText = maxSum([
+          1, 2, -1, -2, 1, 0, -1,
+        ]);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 3487. Maximum Unique Subarray Sum After Deletion</h1>
+    <div class="elfjS" data-track-load="description_content"><p>You are given an integer array <code>nums</code>.</p>
+
+<p>You are allowed to delete any number of elements from <code>nums</code> without making it <strong>empty</strong>. After performing the deletions, select a <span data-keyword="subarray-nonempty" class=" cursor-pointer relative text-dark-blue-s text-sm"><button type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:rs:" data-state="closed" class="">subarray</button></span> of <code>nums</code> such that:</p>
+
+<ol>
+	<li>All elements in the subarray are <strong>unique</strong>.</li>
+	<li>The sum of the elements in the subarray is <strong>maximized</strong>.</li>
+</ol>
+
+<p>Return the <strong>maximum sum</strong> of such a subarray.</p>
+
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+
+<div class="example-block">
+<p><strong>Input:</strong> <span class="example-io">nums = [1,2,3,4,5]</span></p>
+
+<p><strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> 15</p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Select the entire array without deleting any element to obtain the maximum sum.</p>
+</div>
+
+<p><strong class="example">Example 2:</strong></p>
+
+<div class="example-block">
+<p><strong>Input:</strong> <span class="example-io">nums = [1,1,0,1,1]</span></p>
+
+<p><strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> 1</p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Delete the element <code>nums[0] == 1</code>, <code>nums[1] == 1</code>, <code>nums[2] == 0</code>, and <code>nums[3] == 1</code>. Select the entire array <code>[1]</code> to obtain the maximum sum.</p>
+</div>
+
+<p><strong class="example">Example 3:</strong></p>
+
+<div class="example-block">
+<p><strong>Input:</strong> <span class="example-io">nums = [1,2,-1,-2,1,0,-1]</span></p>
+
+<p><strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> 3</p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Delete the elements <code>nums[2] == -1</code> and <code>nums[3] == -2</code>, and select the subarray <code>[2, 1]</code> from <code>[1, 2, 1, 0, -1]</code> to obtain the maximum sum.</p>
+</div>
+
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 100</code></li>
+	<li><code>-100 &lt;= nums[i] &lt;= 100</code></li>
+</ul>
+</div>
+  </body>
+</html>

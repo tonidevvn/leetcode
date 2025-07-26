@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 383. Ransom Note</title>
+    <script>
+      /**
+       * @param {string} ransomNote
+       * @param {string} magazine
+       * @return {boolean}
+       */
+      var canConstruct = function (ransomNote, magazine) {
+        if (ransomNote.length > magazine.length) return false;
+
+        let ransomNoteCount = Array(26).fill(0);
+        let magazineCount = [...ransomNoteCount];
+        let len = Math.max(ransomNote.length, magazine.length);
+
+        for (let i = 0; i < len; i++) {
+          if (i < ransomNote.length)
+            ransomNoteCount[ransomNote[i].charCodeAt(0) - "a".charCodeAt(0)]++;
+          if (i < magazine.length)
+            magazineCount[magazine[i].charCodeAt(0) - "a".charCodeAt(0)]++;
+        }
+        for (let i = 0; i < ransomNoteCount.length; i++) {
+          if (ransomNoteCount[i] > magazineCount[i]) return false;
+        }
+        return true;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = canConstruct(
+          (ransomNote = "a"),
+          (magazine = "b")
+        );
+        // Example 2
+        document.getElementById("ex2").innerText = canConstruct(
+          (ransomNote = "aa"),
+          (magazine = "ab")
+        );
+        // Example 3
+        document.getElementById("ex3").innerText = canConstruct(
+          (ransomNote = "bg"),
+          (magazine = "efjbdfbdgfjhhaiigfhbaejahgfbbgbjagbddfgdiaigdadhcfcj")
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 383. Ransom Note</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given two strings <code>ransomNote</code> and <code>magazine</code>,
+        return <code>true</code><em> if </em><code>ransomNote</code
+        ><em> can be constructed by using the letters from </em
+        ><code>magazine</code><em> and </em><code>false</code
+        ><em> otherwise</em>.
+      </p>
+
+      <p>
+        Each letter in <code>magazine</code> can only be used once in
+        <code>ransomNote</code>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <pre><strong>Input:</strong> ransomNote = "a", magazine = "b"
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> false
+</pre>
+      <p><strong class="example">Example 2:</strong></p>
+      <pre><strong>Input:</strong> ransomNote = "aa", magazine = "ab"
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> false
+</pre>
+      <p><strong class="example">Example 3:</strong></p>
+      <pre><strong>Input:</strong> ransomNote = "bg", magazine = "efjbdfbdgfjhhaiigfhbaejahgfbbgbjagbddfgdiaigdadhcfcj"
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> true
+</pre>
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code
+            >1 &lt;= ransomNote.length, magazine.length &lt;= 10<sup
+              >5</sup
+            ></code
+          >
+        </li>
+        <li>
+          <code>ransomNote</code> and <code>magazine</code> consist of lowercase
+          English letters.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
