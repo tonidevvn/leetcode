@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 504. Base 7</title>
+    <script>
+      /**
+       * @param {number} num
+       * @return {string}
+       */
+      var convertToBase7 = function (num) {
+        let negative = false;
+        if (num < 0) {
+          negative = true;
+          num *= -1;
+        }
+        let ans = [];
+        while (true) {
+          ans.unshift(num % 7);
+          if (num >= 7) num = Math.floor(num / 7);
+          else break;
+        }
+        return negative ? "-" + ans.join("") : ans.join("");
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = convertToBase7([100]);
+        // Example 2
+        document.getElementById("ex2").innerText = convertToBase7(-7);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 504. Base 7</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given an integer <code>num</code>, return
+        <em>a string of its <strong>base 7</strong> representation</em>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <pre><strong>Input:</strong> num = 100
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> "202"
+</pre>
+      <p><strong class="example">Example 2:</strong></p>
+      <pre><strong>Input:</strong> num = -7
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> "-10"
+</pre>
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>-10<sup>7</sup> &lt;= num &lt;= 10<sup>7</sup></code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

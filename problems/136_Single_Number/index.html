@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 136. Single Number</title>
+    <script>
+      /**
+       * @param {number[]} nums
+       * @return {number}
+       */
+      var singleNumber = function (nums) {
+        let ans = [];
+        nums = nums.sort((a, b) => a - b);
+        console.log("🚀 ~ singleNumber ~ nums:", nums);
+        let count = 1;
+        for (let i = 0; i < nums.length; i++) {
+          if (nums[i] == nums[i + 1]) count++;
+          else if (count % 2 == 1) return nums[i];
+          else count = 1;
+        }
+        return 0;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = singleNumber([2, 2, 1]);
+        // Example 2
+        document.getElementById("ex2").innerText = singleNumber([
+          4, 1, 2, 1, 2,
+        ]);
+        // Example 3
+        document.getElementById("ex3").innerText = singleNumber([1]);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 136. Single Number</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a <strong>non-empty</strong>&nbsp;array of integers
+        <code>nums</code>, every element appears <em>twice</em> except for one.
+        Find that single one.
+      </p>
+
+      <p>
+        You must&nbsp;implement a solution with a linear runtime complexity and
+        use&nbsp;only constant&nbsp;extra space.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong> <span class="example-io">nums = [2,2,1]</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> 1
+        </p>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">nums = [4,1,2,1,2]</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> 4
+        </p>
+      </div>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong> <span class="example-io">nums = [1]</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> 1
+        </p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= nums.length &lt;= 3 * 10<sup>4</sup></code>
+        </li>
+        <li>
+          <code
+            >-3 * 10<sup>4</sup> &lt;= nums[i] &lt;= 3 * 10<sup>4</sup></code
+          >
+        </li>
+        <li>
+          Each element in the array appears twice except for one element which
+          appears only once.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

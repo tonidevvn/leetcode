@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 412. Fizz Buzz</title>
+    <script>
+      /**
+       * @param {number} n
+       * @return {string[]}
+       */
+      var fizzBuzz = function (n) {
+        let ans = Array(n)
+          .fill(1)
+          .map((_, index) => index + 1);
+        return ans.map((v) =>
+          v % 3 == 0 && v % 5 == 0
+            ? "FizzBuzz"
+            : v % 3 == 0
+            ? "Fizz"
+            : v % 5 == 0
+            ? "Buzz"
+            : String(v)
+        );
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = fizzBuzz(3);
+        // Example 2
+        document.getElementById("ex2").innerText = fizzBuzz(5);
+        // Example 2
+        document.getElementById("ex3").innerText = fizzBuzz(15);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 412. Fizz Buzz</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given an integer <code>n</code>, return <em>a string array </em
+        ><code>answer</code><em> (<strong>1-indexed</strong>) where</em>:
+      </p>
+
+      <ul>
+        <li>
+          <code>answer[i] == "FizzBuzz"</code> if <code>i</code> is divisible by
+          <code>3</code> and <code>5</code>.
+        </li>
+        <li>
+          <code>answer[i] == "Fizz"</code> if <code>i</code> is divisible by
+          <code>3</code>.
+        </li>
+        <li>
+          <code>answer[i] == "Buzz"</code> if <code>i</code> is divisible by
+          <code>5</code>.
+        </li>
+        <li>
+          <code>answer[i] == i</code> (as a string) if none of the above
+          conditions are true.
+        </li>
+      </ul>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <pre><strong>Input:</strong> n = 3
+<strong>Output:</strong>  <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> ["1","2","Fizz"]
+</pre>
+      <p><strong class="example">Example 2:</strong></p>
+      <pre><strong>Input:</strong> n = 5
+<strong>Output:</strong>  <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> ["1","2","Fizz","4","Buzz"]
+</pre>
+      <p><strong class="example">Example 3:</strong></p>
+      <pre><strong>Input:</strong> n = 15
+<strong>Output:</strong>  <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]
+</pre>
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= n &lt;= 10<sup>4</sup></code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

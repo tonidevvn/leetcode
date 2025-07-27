@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 121. Best Time to Buy and Sell Stock</title>
+    <script>
+      /**
+       * @param {number[]} prices
+       * @return {number}
+       */
+      var maxProfit = function (prices) {
+        let minPrice = prices[0];
+        let maxProfit = 0;
+        for (let price of prices) {
+          if (price < minPrice) {
+            minPrice = price;
+          } else if (price - minPrice > maxProfit) {
+            maxProfit = price - minPrice;
+          }
+        }
+        return maxProfit;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = maxProfit([
+          7, 1, 5, 3, 6, 4,
+        ]);
+        // Example 2
+        document.getElementById("ex2").innerText = maxProfit([7, 6, 4, 3, 1]);
+        // Example 3
+        document.getElementById("ex3").innerText = maxProfit([2, 1, 4]);
+        // Example 4
+        document.getElementById("ex4").innerText = maxProfit([2, 4, 1]);
+        // Example 5
+        document.getElementById("ex5").innerText = maxProfit([2,1,2,1,0,1,2]);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 121. Best Time to Buy and Sell Stock</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        You are given an array <code>prices</code> where
+        <code>prices[i]</code> is the price of a given stock on the
+        <code>i<sup>th</sup></code> day.
+      </p>
+
+      <p>
+        You want to maximize your profit by choosing a
+        <strong>single day</strong> to buy one stock and choosing a
+        <strong>different day in the future</strong> to sell that stock.
+      </p>
+
+      <p>
+        Return
+        <em>the maximum profit you can achieve from this transaction</em>. If
+        you cannot achieve any profit, return <code>0</code>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> prices = [7,1,5,3,6,4]
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+        -> 5
+<strong>Explanation:</strong> Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> prices = [7,6,4,3,1]
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+        -> 0
+<strong>Explanation:</strong> In this case, no transactions are done and the max profit = 0.
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> prices = [2, 1, 4]
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+        -> 3
+</pre>
+      <p><strong class="example">Example 4:</strong></p>
+
+      <pre><strong>Input:</strong> prices = [2, 4, 1]
+<strong>Output:</strong> <span id="ex4" style="color: red; font-size: large"></span> ; Expected
+        -> 2
+</pre>
+      <p><strong class="example">Example 5:</strong></p>
+
+      <pre><strong>Input:</strong> prices = [2,1,2,1,0,1,2]
+<strong>Output:</strong> <span id="ex5" style="color: red; font-size: large"></span> ; Expected
+        -> 2
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= prices.length &lt;= 10<sup>5</sup></code>
+        </li>
+        <li>
+          <code>0 &lt;= prices[i] &lt;= 10<sup>4</sup></code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
