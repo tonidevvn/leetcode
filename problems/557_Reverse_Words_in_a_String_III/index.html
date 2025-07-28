@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 557. Reverse Words in a String III</title>
+    <script>
+      /**
+       * @param {string} s
+       * @return {string}
+       */
+      var reverseWords = function (s) {
+        let words = s.split(" ").map((v) => v.split("").reverse().join(""));
+        return words.join(" ");
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = reverseWords(
+          "Let's take LeetCode contest"
+        );
+        // Example 2
+        document.getElementById("ex2").innerText = reverseWords(
+          "Mr Ding"
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 557. Reverse Words in a String III</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a string <code>s</code>, reverse the order of characters in each
+        word within a sentence while still preserving whitespace and initial
+        word order.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> s = "Let's take LeetCode contest"
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> "s'teL ekat edoCteeL tsetnoc"
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> s = "Mr Ding"
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> "rM gniD"
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= s.length &lt;= 5 * 10<sup>4</sup></code>
+        </li>
+        <li>
+          <code>s</code> contains printable <strong>ASCII</strong> characters.
+        </li>
+        <li><code>s</code> does not contain any leading or trailing spaces.</li>
+        <li>There is <strong>at least one</strong> word in <code>s</code>.</li>
+        <li>
+          All the words in <code>s</code> are separated by a single space.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

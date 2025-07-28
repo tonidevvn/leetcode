@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 541. Reverse String II</title>
+    <script>
+      /**
+       * @param {string} s
+       * @param {number} k
+       * @return {string}
+       */
+      var reverseStr = function (s, k) {
+        console.log("🚀🚀🚀🚀🚀 ~ reverseStr ~ s:", s);
+        if (s.length < k) return s.split("").reverse().join("");
+        let ans = "";
+        let toberotated = "";
+        for (let i = 0; i < s.length; i++) {
+          if (toberotated.length < k) {
+            toberotated = s[i] + toberotated;
+          } else if (toberotated.length < 2 * k) {
+            toberotated += s[i];
+          }
+
+          console.log("🚀 ~ reverseStr ~ toberotated:", toberotated);
+          if (toberotated.length == 2 * k || i == s.length - 1) {
+            console.log(
+              "🚀 ~ reverseStr ~ i == s.length - 1:",
+              i == s.length - 1
+            );
+            ans += toberotated;
+            toberotated = "";
+            console.log("🚀 ~ reverseStr ~ toberotated:", toberotated);
+          }
+        }
+        return ans;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = reverseStr(
+          (s = "abcdefg"),
+          (k = 2)
+        );
+        // Example 2
+        document.getElementById("ex2").innerText = reverseStr(
+          (s = "abcd"),
+          (k = 2)
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 541. Reverse String II</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a string <code>s</code> and an integer <code>k</code>, reverse the
+        first <code>k</code> characters for every <code>2k</code> characters
+        counting from the start of the string.
+      </p>
+
+      <p>
+        If there are fewer than <code>k</code> characters left, reverse all of
+        them. If there are less than <code>2k</code> but greater than or equal
+        to <code>k</code> characters, then reverse the first
+        <code>k</code> characters and leave the other as original.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <pre><strong>Input:</strong> s = "abcdefg", k = 2
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> "bacdfeg"
+</pre>
+      <p><strong class="example">Example 2:</strong></p>
+      <pre><strong>Input:</strong> s = "abcd", k = 2
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> "bacd"
+</pre>
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= s.length &lt;= 10<sup>4</sup></code>
+        </li>
+        <li><code>s</code> consists of only lowercase English letters.</li>
+        <li>
+          <code>1 &lt;= k &lt;= 10<sup>4</sup></code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
