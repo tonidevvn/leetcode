@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 521. Longest Uncommon Subsequence I</title>
+    <script>
+      /**
+       * @param {string} a
+       * @param {string} b
+       * @return {number}
+       */
+      var findLUSlength = function (a, b) {
+        if (a === b) return -1;
+        return Math.max(a.length, b.length);
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = findLUSlength(
+          (a = "aba"),
+          (b = "cdc")
+        );
+        // Example 2
+        document.getElementById("ex2").innerText = findLUSlength(
+          (a = "aaa"),
+          (b = "bbb")
+        );
+        // Example 3
+        document.getElementById("ex3").innerText = findLUSlength(
+          (a = "aaa"),
+          (b = "aaa")
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 521. Longest Uncommon Subsequence I</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given two strings <code>a</code> and <code>b</code>, return
+        <em
+          >the length of the
+          <strong>longest uncommon subsequence</strong> between </em
+        ><code>a</code> <em>and</em> <code>b</code>.
+        <em>If no such uncommon subsequence exists, return</em> <code>-1</code
+        ><em>.</em>
+      </p>
+
+      <p>
+        An <strong>uncommon subsequence</strong> between two strings is a string
+        that is a
+        <strong
+          ><span
+            data-keyword="subsequence-string"
+            class="cursor-pointer relative text-dark-blue-s text-sm"
+            ><button
+              type="button"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              aria-controls="radix-:rq6:"
+              data-state="closed"
+              class=""
+            >
+              subsequence
+            </button></span
+          >
+          of exactly one of them</strong
+        >.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> a = "aba", b = "cdc"
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> 3
+<strong>Explanation:</strong> One longest uncommon subsequence is "aba" because "aba" is a subsequence of "aba" but not "cdc".
+Note that "cdc" is also a longest uncommon subsequence.
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> a = "aaa", b = "bbb"
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> 3
+<strong>Explanation:</strong>&nbsp;The longest uncommon subsequences are "aaa" and "bbb".
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> a = "aaa", b = "aaa"
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> -1
+<strong>Explanation:</strong>&nbsp;Every subsequence of string a is also a subsequence of string b. Similarly, every subsequence of string b is also a subsequence of string a. So the answer would be <code>-1</code>.
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= a.length, b.length &lt;= 100</code></li>
+        <li>
+          <code>a</code> and <code>b</code> consist of lower-case English
+          letters.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

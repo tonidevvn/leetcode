@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 520. Detect Capital</title>
+    <script>
+      /**
+       * @param {string} word
+       * @return {boolean}
+       */
+      var detectCapitalUse = function (word) {
+        let allCapitals = word.toUpperCase();
+        let noCapitals = word.toLowerCase();
+        let firstCapital = word[0].toUpperCase() + word.slice(1).toLowerCase();
+        return [allCapitals, noCapitals, firstCapital].includes(word);
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = detectCapitalUse("USA");
+        // Example 2
+        document.getElementById("ex2").innerText = detectCapitalUse("FlaG");
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 520. Detect Capital</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        We define the usage of capitals in a word to be right when one of the
+        following cases holds:
+      </p>
+
+      <ul>
+        <li>All letters in this word are capitals, like <code>"USA"</code>.</li>
+        <li>
+          All letters in this word are not capitals, like
+          <code>"leetcode"</code>.
+        </li>
+        <li>
+          Only the first letter in this word is capital, like
+          <code>"Google"</code>.
+        </li>
+      </ul>
+
+      <p>
+        Given a string <code>word</code>, return <code>true</code> if the usage
+        of capitals in it is right.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <pre><strong>Input:</strong> word = "USA"
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> true
+</pre>
+      <p><strong class="example">Example 2:</strong></p>
+      <pre><strong>Input:</strong> word = "FlaG"
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> false
+</pre>
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= word.length &lt;= 100</code></li>
+        <li>
+          <code>word</code> consists of lowercase and uppercase English letters.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

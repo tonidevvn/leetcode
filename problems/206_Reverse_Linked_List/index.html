@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 206. Reverse Linked List</title>
+    <script>
+      /**
+       * Definition for singly-linked list.
+       */
+      function ListNode(val, next) {
+        this.val = val === undefined ? 0 : val;
+        this.next = next === undefined ? null : next;
+      }
+      /**
+       * @param {ListNode} head
+       * @return {ListNode}
+       */
+      var reverseList = function (head) {
+        let ans = null;
+        let current = head;
+        while (current) {
+          let nextNode = current.next;
+          current.next = ans;
+          ans = current;
+          current = nextNode;
+        }
+
+        return ans;
+      };
+
+      function printList(head) {
+        let arr = [];
+        while (head) {
+          arr.push(head.val);
+          head = head.next;
+        }
+        return JSON.stringify(arr);
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        let head1 = new ListNode(
+          1,
+          new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5))))
+        );
+        document.getElementById("ex1").innerText = printList(
+          reverseList(head1)
+        );
+        // Example 2
+        let head2 = new ListNode(1, new ListNode(2));
+        document.getElementById("ex2").innerText = printList(
+          reverseList(head2)
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 206. Reverse Linked List</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given the <code>head</code> of a singly linked list, reverse the list,
+        and return <em>the reversed list</em>.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2021/02/19/rev1ex1.jpg"
+        style="width: 542px; height: 222px"
+      />
+      <pre><strong>Input:</strong> head = [1,2,3,4,5]
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+        -> [5,4,3,2,1]
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+      <img
+        alt=""
+        src="https://assets.leetcode.com/uploads/2021/02/19/rev1ex2.jpg"
+        style="width: 182px; height: 222px"
+      />
+      <pre><strong>Input:</strong> head = [1,2]
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+        -> [2,1]
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> head = []
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+        -> []
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          The number of nodes in the list is the range <code>[0, 5000]</code>.
+        </li>
+        <li><code>-5000 &lt;= Node.val &lt;= 5000</code></li>
+      </ul>
+
+      <p>&nbsp;</p>
+      <p>
+        <strong>Follow up:</strong> A linked list can be reversed either
+        iteratively or recursively. Could you implement both?
+      </p>
+    </div>
+  </body>
+</html>
