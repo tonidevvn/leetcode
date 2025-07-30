@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 821. Shortest Distance to a Character</title>
+    <script>
+      /**
+       * @param {string} s
+       * @param {character} c
+       * @return {number[]}
+       */
+      var shortestToChar = function (s, c) {
+        let firstCIndex = s.indexOf(c);
+        let ans = s.split("").map((v) => (v === c ? 0 : 1));
+        let cIndexes = ans
+          .map((v, index) => (v === 0 ? index : -1))
+          .filter((v) => v !== -1);
+
+        let left = 0;
+        let right = 0;
+        for (let i = 0; i < ans.length; i++) {
+          if (ans[i] === 0) continue; // skip
+          if (i < cIndexes[0] || cIndexes.length == 1)
+            ans[i] = Math.abs(cIndexes[0] - i);
+          else if (i < cIndexes[1]) {
+            let distleft = Math.abs(cIndexes[0] - i);
+            let distright = Math.abs(cIndexes[1] - i);
+            if (distleft < distright) ans[i] = distleft;
+            else {
+              ans[i] = distright;
+              cIndexes.shift();
+            }
+          } else {
+            cIndexes.shift();
+            i--;
+          }
+        }
+        return ans;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = shortestToChar(
+          (s = "loveleetcode"),
+          (c = "e")
+        );
+        // Example 2
+        document.getElementById("ex2").innerText = shortestToChar(
+          (s = "aaab"),
+          (c = "b")
+        );
+        // Example 3
+        document.getElementById("ex3").innerText = shortestToChar(
+          (s = "aaba"),
+          (c = "b")
+        );
+        // Example 4
+        document.getElementById("ex4").innerText = shortestToChar(
+          (s = "bbba"),
+          (c = "b")
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 821. Shortest Distance to a Character</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a string <code>s</code> and a character <code>c</code> that occurs
+        in <code>s</code>, return <em>an array of integers </em
+        ><code>answer</code><em> where </em
+        ><code>answer.length == s.length</code><em> and </em
+        ><code>answer[i]</code
+        ><em> is the <strong>distance</strong> from index </em><code>i</code
+        ><em> to the <strong>closest</strong> occurrence of character </em
+        ><code>c</code><em> in </em><code>s</code>.
+      </p>
+
+      <p>
+        The <strong>distance</strong> between two indices <code>i</code> and
+        <code>j</code> is <code>abs(i - j)</code>, where <code>abs</code> is the
+        absolute value function.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> s = "loveleetcode", c = "e"
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> [3,2,1,0,1,0,0,1,2,2,1,0]
+<strong>Explanation:</strong> The character 'e' appears at indices 3, 5, 6, and 11 (0-indexed).
+The closest occurrence of 'e' for index 0 is at index 3, so the distance is abs(0 - 3) = 3.
+The closest occurrence of 'e' for index 1 is at index 3, so the distance is abs(1 - 3) = 2.
+For index 4, there is a tie between the 'e' at index 3 and the 'e' at index 5, but the distance is still the same: abs(4 - 3) == abs(4 - 5) = 1.
+The closest occurrence of 'e' for index 8 is at index 6, so the distance is abs(8 - 6) = 2.
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> s = "aaab", c = "b"
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> [3,2,1,0]
+</pre>
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> s = "aaba", c = "b"
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> [2,1,0,1]
+</pre>
+      <p><strong class="example">Example 4:</strong></p>
+
+      <pre><strong>Input:</strong> s = "bbba", c = "b"
+<strong>Output:</strong> <span id="ex4" style="color: red; font-size: large"></span> ; Expected
+          -> [0,0,0,1]
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= s.length &lt;= 10<sup>4</sup></code>
+        </li>
+        <li>
+          <code>s[i]</code> and <code>c</code> are lowercase English letters.
+        </li>
+        <li>
+          It is guaranteed that <code>c</code> occurs at least once in
+          <code>s</code>.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

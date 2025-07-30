@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 819. Most Common Word</title>
+    <script>
+      /**
+       * @param {string} paragraph
+       * @param {string[]} banned
+       * @return {string}
+       */
+      var mostCommonWord = function (paragraph, banned) {
+        let symbols = "!?',;.";
+        let words = paragraph
+          .toLowerCase()
+          .split(/[,.!?;'\s]+/)
+          .filter((w) => w.length > 0)
+          .sort();
+        let mostCommon = 1,
+          count = 1;
+        let mostCommonWord = '';
+        let setBanned = new Set(banned)
+        for (let i = 0; i < words.length; i++) {
+          if (setBanned.has(words[i])) {
+            continue;
+          }
+          if (words[i] == words[i + 1]) count++;
+          else {
+            if (mostCommonWord == '' || count > mostCommon) {
+              mostCommon = count;
+              mostCommonWord = words[i];
+            }
+            count = 1;
+          }
+        }
+        return mostCommonWord;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = mostCommonWord(
+          (paragraph =
+            "Bob hit a ball, the hit BALL flew far after it was hit."),
+          (banned = ["hit"])
+        );
+        // Example 2
+        document.getElementById("ex2").innerText = mostCommonWord(
+          (paragraph = "a."),
+          (banned = [])
+        );
+        // Example 3
+        document.getElementById("ex3").innerText = mostCommonWord(
+          (paragraph = "abc abc? abcd the jeff!"),
+          (banned = ["abc","abcd","jeff"])
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 819. Most Common Word</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a string <code>paragraph</code> and a string array of the banned
+        words <code>banned</code>, return
+        <em>the most frequent word that is not banned</em>. It is
+        <strong>guaranteed</strong> there is
+        <strong>at least one word</strong> that is not banned, and that the
+        answer is <strong>unique</strong>.
+      </p>
+
+      <p>
+        The words in <code>paragraph</code> are
+        <strong>case-insensitive</strong> and the answer should be returned in
+        <strong>lowercase</strong>.
+      </p>
+
+      <p>
+        <strong>Note</strong> that words can not contain punctuation symbols.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> paragraph = "Bob hit a ball, the hit BALL flew far after it was hit.", banned = ["hit"]
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> "ball"
+<strong>Explanation:</strong> 
+"hit" occurs 3 times, but it is a banned word.
+"ball" occurs twice (and no other word does), so it is the most frequent non-banned word in the paragraph. 
+Note that words in the paragraph are not case sensitive,
+that punctuation is ignored (even if adjacent to words, such as "ball,"), 
+and that "hit" isn't the answer even though it occurs more because it is banned.
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> paragraph = "a.", banned = []
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> "a"
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> paragraph = "abc abc? abcd the jeff!", banned = ["abc","abcd","jeff"]
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> "the"
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= paragraph.length &lt;= 1000</code></li>
+        <li>
+          paragraph consists of English letters, space <code>' '</code>, or one
+          of the symbols: <code>"!?',;."</code>.
+        </li>
+        <li><code>0 &lt;= banned.length &lt;= 100</code></li>
+        <li><code>1 &lt;= banned[i].length &lt;= 10</code></li>
+        <li>
+          <code>banned[i]</code> consists of only lowercase English letters.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

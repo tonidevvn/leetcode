@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 680. Valid Palindrome II</title>
+    <script>
+      /**
+       * @param {string} s
+       * @return {boolean}
+       */
+      var validPalindrome = function (s) {
+        console.log("🚀 ~ validPalindrome ~ s:", s);
+
+        const isPalindrome = (s) => {
+          let left = 0,
+          right = s.length - 1;
+
+          while (left < right) {
+            if (s[left++] != s[right--]) {
+              return false;
+            }
+          }
+          return true;
+        }
+
+        let left = 0,
+          right = s.length - 1;
+        while (left < right) {
+          if (s[left] == s[right]) {
+            left++;
+            right--;
+          } else {
+            if (left == right - 1) return true;
+            if (s[left] == s[right - 1]) {
+              let subs = s.slice(left, right);
+              if (isPalindrome(subs)) return true;
+            }
+            if (s[left + 1] == s[right]) {
+              let subs = s.slice(left+1, right+1);
+              if (isPalindrome(subs)) return true;
+            }
+            return false;
+          }
+        }
+        return true;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = validPalindrome("aba");
+        // Example 2
+        document.getElementById("ex2").innerText = validPalindrome("abca");
+        // Example 3
+        document.getElementById("ex3").innerText = validPalindrome("eedede");
+        // Example 4
+        document.getElementById("ex4").innerText = validPalindrome("eceec");
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 680. Valid Palindrome II</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a string <code>s</code>, return <code>true</code> <em>if the </em
+        ><code>s</code
+        ><em>
+          can be palindrome after deleting
+          <strong>at most one</strong> character from it</em
+        >.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> s = "aba"
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          -> true
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> s = "abca"
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> true
+<strong>Explanation:</strong> You could delete the character 'c'.
+</pre>
+
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> s = "eedede"
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> true
+</pre>
+
+      <p><strong class="example">Example 4:</strong></p>
+
+      <pre><strong>Input:</strong> s = "eceec"
+<strong>Output:</strong> <span id="ex4" style="color: red; font-size: large"></span> ; Expected
+          -> true
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li>
+          <code>1 &lt;= s.length &lt;= 10<sup>5</sup></code>
+        </li>
+        <li><code>s</code> consists of lowercase English letters.</li>
+      </ul>
+    </div>
+  </body>
+</html>
