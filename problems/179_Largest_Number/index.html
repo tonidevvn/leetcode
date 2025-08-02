@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 179. Largest Number</title>
+    <script>
+      /**
+       * @param {number[]} nums
+       * @return {string}
+       */
+      var largestNumber = function (nums) {
+        let sortedNums = nums.sort(
+          (a, b) =>
+            parseInt(b.toString() + a.toString()) -
+            parseInt(a.toString() + b.toString())
+        );
+
+        let ans = sortedNums.join("");
+        return ans.startsWith("0") ? "0" : ans;
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = largestNumber([10, 2]);
+        // Example 2
+        document.getElementById("ex2").innerText = largestNumber([
+          3, 30, 34, 5, 9,
+        ]);
+        // Example 3
+        document.getElementById("ex3").innerText = largestNumber([121, 12]);
+        // Example 4
+        document.getElementById("ex4").innerText = largestNumber([34323, 3432]);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 179. Largest Number</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        Given a list of non-negative integers <code>nums</code>, arrange them
+        such that they form the largest number and return it.
+      </p>
+
+      <p>
+        Since the result may be very large, so you need to return a string
+        instead of an integer.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [10,2]
+<strong>Output:</strong> <span id="ex1" style="color: red; font-size: large"></span> ; Expected
+          ->"210"
+</pre>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [3,30,34,5,9]
+<strong>Output:</strong> <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> "9534330"
+</pre>
+      <p><strong class="example">Example 3:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [121,12]
+<strong>Output:</strong> <span id="ex3" style="color: red; font-size: large"></span> ; Expected
+          -> "12121"
+</pre>
+      <p><strong class="example">Example 4:</strong></p>
+
+      <pre><strong>Input:</strong> nums = [34323,3432]
+<strong>Output:</strong> <span id="ex4" style="color: red; font-size: large"></span> ; Expected
+          -> "343234323"
+</pre>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>1 &lt;= nums.length &lt;= 100</code></li>
+        <li>
+          <code>0 &lt;= nums[i] &lt;= 10<sup>9</sup></code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
