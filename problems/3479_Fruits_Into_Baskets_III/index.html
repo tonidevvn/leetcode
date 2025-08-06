@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode 3479. Fruits Into Baskets III</title>
+    <script>
+      /**
+       * @param {number[]} fruits
+       * @param {number[]} baskets
+       * @return {number}
+       */
+      var numOfUnplacedFruits = function (fruits, baskets) {
+        // Place each fruit in the leftmost available basket with enough capacity
+        // Segment Tree for Range Maximum Query and Point Update
+        class SegmentTree {
+          constructor(arr) {
+            this.n = arr.length;
+            this.size = 1;
+            while (this.size < this.n) this.size <<= 1;
+            this.data = new Array(this.size * 2).fill(0);
+            for (let i = 0; i < this.n; i++) {
+              this.data[this.size + i] = arr[i];
+            }
+            for (let i = this.size - 1; i > 0; i--) {
+              this.data[i] = Math.max(this.data[i << 1], this.data[(i << 1) | 1]);
+            }
+          }
+          // Query for max in [l, r)
+          query(l, r) {
+            l += this.size;
+            r += this.size;
+            let res = -Infinity;
+            while (l < r) {
+              if (l & 1) res = Math.max(res, this.data[l++]);
+              if (r & 1) res = Math.max(res, this.data[--r]);
+              l >>= 1;
+              r >>= 1;
+            }
+            return res;
+          }
+          // Find leftmost index >= val, return -1 if not found
+          findLeftmost(val, node = 1, nodeL = 0, nodeR = this.size) {
+            if (this.data[node] < val) return -1;
+            if (nodeL + 1 === nodeR) return nodeL < this.n ? nodeL : -1;
+            let mid = (nodeL + nodeR) >> 1;
+            let left = node << 1, right = left | 1;
+            let res = this.findLeftmost(val, left, nodeL, mid);
+            if (res !== -1) return res;
+            return this.findLeftmost(val, right, mid, nodeR);
+          }
+          // Set index to 0 (used)
+          update(idx) {
+            let pos = this.size + idx;
+            this.data[pos] = 0;
+            while (pos > 1) {
+              pos >>= 1;
+              this.data[pos] = Math.max(this.data[pos << 1], this.data[(pos << 1) | 1]);
+            }
+          }
+        }
+        let st = new SegmentTree(baskets);
+        let unplaced = 0;
+        for (let i = 0; i < fruits.length; i++) {
+          let idx = st.findLeftmost(fruits[i]);
+          if (idx === -1) {
+            unplaced++;
+          } else {
+            st.update(idx);
+          }
+        }
+        return unplaced;
+
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Example 1
+        document.getElementById("ex1").innerText = numOfUnplacedFruits(
+          (fruits = [4, 2, 5]),
+          (baskets = [3, 5, 4])
+        );
+
+        // Example 2
+        document.getElementById("ex2").innerText = numOfUnplacedFruits(
+          (fruits = [3, 6, 1]),
+          (baskets = [6, 4, 7])
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <h1>LeetCode 3479. Fruits Into Baskets III</h1>
+    <div class="elfjS" data-track-load="description_content">
+      <p>
+        You are given two arrays of integers, <code>fruits</code> and
+        <code>baskets</code>, each of length <code>n</code>, where
+        <code>fruits[i]</code> represents the <strong>quantity</strong> of the
+        <code>i<sup>th</sup></code> type of fruit, and
+        <code>baskets[j]</code> represents the <strong>capacity</strong> of the
+        <code>j<sup>th</sup></code> basket.
+      </p>
+
+      <p>From left to right, place the fruits according to these rules:</p>
+
+      <ul>
+        <li>
+          Each fruit type must be placed in the
+          <strong>leftmost available basket</strong> with a capacity
+          <strong>greater than or equal</strong> to the quantity of that fruit
+          type.
+        </li>
+        <li>Each basket can hold <b>only one</b> type of fruit.</li>
+        <li>
+          If a fruit type <b>cannot be placed</b> in any basket, it remains
+          <b>unplaced</b>.
+        </li>
+      </ul>
+
+      <p>
+        Return the number of fruit types that remain unplaced after all possible
+        allocations are made.
+      </p>
+
+      <p>&nbsp;</p>
+      <p><strong class="example">Example 1:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">fruits = [4,2,5], baskets = [3,5,4]</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong
+          ><span id="ex1" style="color: red; font-size: large"></span> ;
+          Expected -> 1
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <ul>
+          <li>
+            <code>fruits[0] = 4</code> is placed in <code>baskets[1] = 5</code>.
+          </li>
+          <li>
+            <code>fruits[1] = 2</code> is placed in <code>baskets[0] = 3</code>.
+          </li>
+          <li>
+            <code>fruits[2] = 5</code> cannot be placed in
+            <code>baskets[2] = 4</code>.
+          </li>
+        </ul>
+
+        <p>Since one fruit type remains unplaced, we return 1.</p>
+      </div>
+
+      <p><strong class="example">Example 2:</strong></p>
+
+      <div class="example-block">
+        <p>
+          <strong>Input:</strong>
+          <span class="example-io">fruits = [3,6,1], baskets = [6,4,7]</span>
+        </p>
+
+        <p>
+          <strong>Output:</strong>
+          <span id="ex2" style="color: red; font-size: large"></span> ; Expected
+          -> 0
+        </p>
+
+        <p><strong>Explanation:</strong></p>
+
+        <ul>
+          <li>
+            <code>fruits[0] = 3</code> is placed in <code>baskets[0] = 6</code>.
+          </li>
+          <li>
+            <code>fruits[1] = 6</code> cannot be placed in
+            <code>baskets[1] = 4</code> (insufficient capacity) but can be
+            placed in the next available basket, <code>baskets[2] = 7</code>.
+          </li>
+          <li>
+            <code>fruits[2] = 1</code> is placed in <code>baskets[1] = 4</code>.
+          </li>
+        </ul>
+
+        <p>Since all fruits are successfully placed, we return 0.</p>
+      </div>
+
+      <p>&nbsp;</p>
+      <p><strong>Constraints:</strong></p>
+
+      <ul>
+        <li><code>n == fruits.length == baskets.length</code></li>
+        <li>
+          <code>1 &lt;= n &lt;= 10<sup>5</sup></code>
+        </li>
+        <li>
+          <code>1 &lt;= fruits[i], baskets[i] &lt;= 10<sup>9</sup></code>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
